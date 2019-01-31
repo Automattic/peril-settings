@@ -1,0 +1,11 @@
+{
+  "settings": {
+  },
+  "rules": {
+    "pull_request": "orta/peril-bootstrap@dangerfiles/pr.js",
+    "issues": "orta/peril-bootstrap@dangerfiles/issue.js"
+  },
+  "repos" : {
+  }
+}
+
