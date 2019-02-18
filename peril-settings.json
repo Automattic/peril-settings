@@ -7,6 +7,9 @@
   "repos" : {
     "wordpress-mobile/WordPress-iOS" : {
       "pull_request": "wordpress-mobile/peril-settings@org/ios.ts"
+    },
+    "wordpress-mobile/WordPress-Android" : {
+      "pull_request": "wordpress-mobile/peril-settings@org/android.ts"
     }
   }
 }
