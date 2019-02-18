@@ -2,8 +2,11 @@
   "settings": {
   },
   "rules": {
-    "pull_request": "pr.ts"
+    "pull_request": "org/common.ts"
   },
   "repos" : {
+    "wordpress-mobile/WordPress-iOS" : {
+      "pull_request": "wordpress-mobile/peril-settings@org/ios.ts"
+    }
   }
 }
