@@ -12,6 +12,13 @@ if (githubLabels.count == 0) {
     warn("PR is missing at least one label.");
 }
 
+// Warn if the PR doesn't have a milestone
+danger.github.api.issues.get(danger.github.thisPR).then(issue => {
+    if (issue.data.milestone == null) {
+        warn("PR is not assigned to a milestone.");
+    }
+});
+
 // A PR shouldn't be merged with the 'DO NOT MERGE' label
 for (let label of githubLabels) {
     if (label.name.includes("DO NOT MERGE")) {
@@ -24,10 +31,3 @@ for (let label of githubLabels) {
 if (danger.github.pr.additions + danger.github.pr.deletions > 500) {
     warn("PR has more than 500 lines of code changing. Consider splitting into smaller PRs if possible.");
 }
-
-// Warn if the PR doesn't have a milestone
-danger.github.api.issues.get(danger.github.thisPR).then(issue => {
-    if (issue.data.milestone == null) {
-        warn("PR is not assigned to a milestone.");
-    }
-});
