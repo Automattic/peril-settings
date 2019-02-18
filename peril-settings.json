@@ -2,7 +2,7 @@
   "settings": {
   },
   "rules": {
-    "pull_request": "org/pr.js"
+    "pull_request": "pr.js"
   },
   "repos" : {
   }
