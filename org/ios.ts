@@ -10,6 +10,9 @@ export default async () => {
         warn("Core Data: Do not edit an existing Core Data model in a release branch unless it hasn't been released to testers yet. Instead create a new model version and merge back to develop soon.");
     }
 
+    /*
+    Disabled due to https://github.com/danger/peril/issues/367
+
     // Podfile should not reference commit hashes
     if (danger.git.modified_files.includes("Podfile")) {
         const diff = await danger.git.diffForFile("Podfile");
@@ -17,5 +20,6 @@ export default async () => {
             warn("Podfile: reference to a commit hash");
         }
     }
+    */
 
 };
