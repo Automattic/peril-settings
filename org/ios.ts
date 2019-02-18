@@ -10,19 +10,10 @@ export default async () => {
         warn("Core Data: Do not edit an existing Core Data model in a release branch unless it hasn't been released to testers yet. Instead create a new model version and merge back to develop soon.");
     }
 
-    console.log("About to do the Podfile check");
-    console.log(`Object.keys(danger.github.utils): ${Object.keys(danger.github.utils)}`);
-    console.log(`Object.keys(danger.git): ${Object.keys(danger.git)}`);
-
-    /*
-    Disabled due to https://github.com/danger/peril/issues/367
     // Podfile should not reference commit hashes
-    if (danger.git.modified_files.includes("Podfile")) {
-        const diff = await danger.git.diffForFile("Podfile");
-        if (/\+[^#]*:commit/.test(diff.added)) {
-            warn("Podfile: reference to a commit hash");
-        }
+    const podfileContents = await danger.github.utils.fileContents("Podfile");
+    if (/[^#]*:commit/.test(podfileContents)) {
+        warn("Podfile: reference to a commit hash");
     }
-    */
 
 };
