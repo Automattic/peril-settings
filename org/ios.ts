@@ -12,7 +12,7 @@ export default async () => {
 
     console.log("About to do the Podfile check");
     console.log(`Object.keys(danger.github.utils): ${Object.keys(danger.github.utils)}`);
-    console.log(`Object.keys(danger.git): ${Object.keys(danger.github)}`);
+    console.log(`Object.keys(danger.git): ${Object.keys(danger.git)}`);
 
     /*
     Disabled due to https://github.com/danger/peril/issues/367
