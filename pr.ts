@@ -44,11 +44,11 @@ export default async () => {
     }
 
     // Podfile should not reference commit hashes
-    if (danger.git.modified_files.includes("Podfile")) {
-        const diff = await danger.git.diffForFile("Podfile");
-        if (/\+[^#]*:commit/.test(diff.added)) {
-            warn("Podfile: reference to a commit hash");
-        }
-    }
+    // if (danger.git.modified_files.includes("Podfile")) {
+    //     const diff = await danger.git.diffForFile("Podfile");
+    //     if (/\+[^#]*:commit/.test(diff.added)) {
+    //         warn("Podfile: reference to a commit hash");
+    //     }
+    // }
 
 };
