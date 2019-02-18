@@ -1,4 +1,4 @@
-import {warn, danger} from "danger";
+import {warn, danger} from "danger"
 
 // Core Data Model Safety Checks
 const target_release_branch = danger.github.pr.base.ref.startsWith("release/");

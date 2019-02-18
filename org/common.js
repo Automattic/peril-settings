@@ -1,4 +1,4 @@
-import {warn, fail, danger} from "danger";
+import {warn, fail, danger} from "danger"
 
 if (danger.github == null || danger.github.pr == null) {
     fail("Not running on a Github PR.");
