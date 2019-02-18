@@ -14,6 +14,8 @@ export default async () => {
     console.log(`Object.keys(danger.github.utils): ${Object.keys(danger.github.utils)}`);
     console.log(`Object.keys(danger.git): ${Object.keys(danger.github)}`);
 
+    /*
+    Disabled due to https://github.com/danger/peril/issues/367
     // Podfile should not reference commit hashes
     if (danger.git.modified_files.includes("Podfile")) {
         const diff = await danger.git.diffForFile("Podfile");
@@ -21,5 +23,6 @@ export default async () => {
             warn("Podfile: reference to a commit hash");
         }
     }
+    */
 
 };
