@@ -2,7 +2,11 @@
   "settings": {
   },
   "rules": {
-    "pull_request": "org/common.ts"
+    "pull_request": "org/common.ts",
+    "issues.milestoned": "org/common.ts",
+    "issues.demilestoned": "org/common.ts",
+    "pull_request.labeled": "org/common.ts",
+    "pull_request.unlabeled": "org/common.ts"
   },
   "repos" : {
     "wordpress-mobile/WordPress-iOS" : {
