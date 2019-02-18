@@ -2,15 +2,8 @@
   "settings": {
   },
   "rules": {
-    "pull_request": "org/common.js"
+    "pull_request": "org/pr.js"
   },
   "repos" : {
-    "wordpress-mobile/WordPress-iOS": {
-      "pull_request": "wordpress-mobile/peril-settings@org/ios.js"
-    },
-    "wordpress-mobile/WordPress-Android": {
-      "pull_request": "wordpress-mobile/peril-settings@org/android.js"
-    }
   }
 }
-
