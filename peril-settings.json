@@ -2,10 +2,15 @@
   "settings": {
   },
   "rules": {
-    "pull_request": "orta/peril-bootstrap@dangerfiles/pr.js",
-    "issues": "orta/peril-bootstrap@dangerfiles/issue.js"
+    "pull_request": "org/common.js"
   },
   "repos" : {
+    "wordpress-mobile/WordPress-iOS": {
+      "pull_request": "org/ios.js"
+    },
+    "wordpress-mobile/WordPress-Android": {
+      "pull_request": "org/android.js"
+    }
   }
 }
 
