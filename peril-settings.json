@@ -6,10 +6,10 @@
   },
   "repos" : {
     "wordpress-mobile/WordPress-iOS": {
-      "pull_request": "org/ios.js"
+      "pull_request": "wordpress-mobile/peril-settings@org/ios.js"
     },
     "wordpress-mobile/WordPress-Android": {
-      "pull_request": "org/android.js"
+      "pull_request": "wordpress-mobile/peril-settings@org/android.js"
     }
   }
 }
