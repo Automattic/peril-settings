@@ -14,18 +14,16 @@ export default async () => {
         warn("PR is missing at least one label.");
     }
 
+    // A PR shouldn't be merged with the 'DO NOT MERGE' label
+    const doNotMerge = githubLabels.some(label => label.name.includes("DO NOT MERGE"));
+    if (doNotMerge) {
+        warn("This PR is tagged with 'DO NOT MERGE'.");
+    }
+
     // Warn if the PR doesn't have a milestone
     const issue = await danger.github.api.issues.get(danger.github.thisPR);
     if (issue.data.milestone == null) {
         warn("PR is not assigned to a milestone.");
-    }
-
-    // A PR shouldn't be merged with the 'DO NOT MERGE' label
-    for (let label of githubLabels) {
-        if (label.name.includes("DO NOT MERGE")) {
-            warn("This PR is tagged with 'DO NOT MERGE'.");
-            break;
-        }
     }
 
     // Warn when there is a big PR

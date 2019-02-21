@@ -15,7 +15,7 @@ export default async () => {
     const matches = podfileContents.match(/^[^#]*:commit/gm);
     const nonGutenbergMatches = matches.filter(m => !m.includes("wordpress-mobile/gutenberg"));
     if (nonGutenbergMatches.length > 0) {
-        warn("Podfile: reference to a commit hash");
+        fail("Podfile: reference to a commit hash");
     }
 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
