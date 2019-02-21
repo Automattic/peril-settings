@@ -13,9 +13,11 @@ export default async () => {
     // Podfile should not reference commit hashes
     const podfileContents = await danger.github.utils.fileContents("Podfile");
     const matches = podfileContents.match(/^[^#]*:commit/gm);
-    const nonGutenbergMatches = matches.filter(m => !m.includes("wordpress-mobile/gutenberg"));
-    if (nonGutenbergMatches.length > 0) {
-        fail("Podfile: reference to a commit hash");
+    if (matches !== null) {
+        const nonGutenbergMatches = matches.filter(m => !m.includes("wordpress-mobile/gutenberg"));
+        if (nonGutenbergMatches.length > 0) {
+            fail("Podfile: reference to a commit hash");
+        }
     }
 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
