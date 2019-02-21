@@ -10,6 +10,12 @@
     },
     "wordpress-mobile/WordPress-Android" : {
       "pull_request": "wordpress-mobile/peril-settings@org/android.ts"
+    },
+    "woocommerce/woocommerce-ios" : {
+      "pull_request": "wordpress-mobile/peril-settings@org/ios.ts"
+    },
+    "woocommerce/woocommerce-android" : {
+      "pull_request": "wordpress-mobile/peril-settings@org/android.ts"
     }
   }
 }
