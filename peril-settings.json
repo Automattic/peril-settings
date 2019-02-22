@@ -1,6 +1,6 @@
 {
   "settings": {
-    "disable_github_check": true
+    "disable_github_check": false
   },
   "rules": {
     "pull_request, pull_request.labeled, pull_request.unlabeled": "org/common.ts"
