@@ -1,5 +1,6 @@
 {
   "settings": {
+    "ignored_repos": ["wordpress-mobile/peril-settings"],
     "disable_github_check": true
   },
   "rules": {
