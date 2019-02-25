@@ -25,7 +25,7 @@ export default async () => {
     const hasModifiedAppStoreStrings = danger.git.modified_files.some(f => f.endsWith("Resources/AppStoreStrings.po"));
 
     if (hasModifiedReleaseNotes && !hasModifiedAppStoreStrings) {
-        fail("The AppStoreStrings.po file must be updated any time changes are made to release notes");
+        warn("The AppStoreStrings.po file must be updated any time changes are made to release notes");
     }
 
 };

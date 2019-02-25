@@ -1,4 +1,4 @@
-import {fail, danger} from "danger";
+import {warn, danger} from "danger";
 
 export default async () => {
 
@@ -7,7 +7,7 @@ export default async () => {
     const hasModifiedPlayStoreStrings = danger.git.modified_files.some(f => f.endsWith("metadata/PlayStoreStrings.po"));
 
     if (hasModifiedReleaseNotes && !hasModifiedPlayStoreStrings) {
-        fail("The PlayStoreStrings.po file must be updated any time changes are made to release notes");
+        warn("The PlayStoreStrings.po file must be updated any time changes are made to release notes");
     }
 
 };
