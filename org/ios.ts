@@ -14,7 +14,7 @@ export default async () => {
     const podfileContents = await danger.github.utils.fileContents("Podfile");
     const matches = podfileContents.match(/^[^#]*:commit/gm);
     if (matches !== null) {
-        const nonGutenbergMatches = matches.filter(m => !m.includes("wordpress-mobile/gutenberg"));
+        const nonGutenbergMatches = matches.filter(m => !m.includes("gutenberg"));
         if (nonGutenbergMatches.length > 0) {
             fail("Podfile: reference to a commit hash");
         }
