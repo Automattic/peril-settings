@@ -1,4 +1,4 @@
-import {warn, danger} from "danger";
+import {message, warn, danger} from "danger";
 
 export default async () => {
 
@@ -9,5 +9,7 @@ export default async () => {
     if (hasModifiedReleaseNotes && !hasModifiedPlayStoreStrings) {
         warn("The PlayStoreStrings.po file must be updated any time changes are made to release notes");
     }
+
+    message("### MPTEST ###");
 
 };
