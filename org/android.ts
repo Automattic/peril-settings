@@ -10,6 +10,9 @@ export default async () => {
         warn("The PlayStoreStrings.po file must be updated any time changes are made to release notes");
     }
 
-    message("### MPTEST ###");
+    console.log("### MPTEST ###");
+    console.log("danger.git");
+    console.log(Object.entries(danger.git));
+    console.log("### MPTEST ###");
 
 };
