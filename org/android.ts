@@ -34,7 +34,7 @@ export default async () => {
         // Create WPLFA branch
         // Get HEAD for develop
         console.log("About go get refs/heads/develop");
-        const wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "refs/heads/develop");
+        const wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "heads/develop");
         console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
 
         // Create ref (branch) based on HEAD
