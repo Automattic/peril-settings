@@ -10,16 +10,13 @@ export default async () => {
         warn("The PlayStoreStrings.po file must be updated any time changes are made to release notes");
     }
     
-    console.log("### MPTEST ###");
     const libsLogin = "libs/login/";
     const modifiedFiles = danger.git.modified_files;
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
-
-    // console.log("Modified files: " + modifiedFiles.toString());
-    // console.log("Created files: " + createdFiles.toString());
-    // console.log("Deleted files: " + deletedFiles.toString());
-    console.log(Object.entries(danger.github.thisPR));
+    
+    console.log("### MPTEST ###");
+    console.log(Object.entries(danger.github.pr));
     console.log("### MPTEST ###");
 
     const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
