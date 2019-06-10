@@ -16,20 +16,22 @@ export default async () => {
     const deletedFiles = danger.git.deleted_files;
     
     console.log("### MPTEST ###");
-    console.log(Object.entries(danger.github.pr));
+    console.log(Object.entries(danger.github.pr.comments));
     console.log("### MPTEST ###");
 
     const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
                                      createdFiles.some(f => f.includes(libsLogin)) ||
                                      deletedFiles.some(f => f.includes(libsLogin));
     if (containsLibsLoginChanges) {
-        console.log("PR contains changes in /libs/login!");
         const api = danger.github.api;
-        const pr = danger.github.thisPR
+        const pr = danger.github.pr
         const WPLFA = "markpar/WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
         let wplfaMergeBranchSha;
         let wplfaDevelopHead;
+        
+        console.log("PR contains changes in /libs/login!");
+        console.log(`PR's mergeable status is: ${pr.statuses['mergeable']}`);
 
         // Create WPLFA branch
         try {
