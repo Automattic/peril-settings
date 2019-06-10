@@ -16,7 +16,7 @@ export default async () => {
     const deletedFiles = danger.git.deleted_files;
     
     console.log("###                                                                                        ST ###");
-    console.log(Object.entries(danger.github.pr.comments));
+    console.log(danger.github.api.repos.getAll());
     console.log("### MPTEST ###");
 
     const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
