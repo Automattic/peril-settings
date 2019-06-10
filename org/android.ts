@@ -11,6 +11,7 @@ export default async () => {
     }
     
     console.log("### MPTEST ###");
+    const libsLogin = "libs/login/";
     const modifiedFiles = danger.git.modified_files;
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
@@ -20,10 +21,29 @@ export default async () => {
     console.log("Deleted files: " + deletedFiles.toString());
     console.log("### MPTEST ###");
 
-    const prContainsLibsLoginChanges = modifiedFiles.some(f => f.includes("libs/login/")) || 
-                                       createdFiles.some(f => f.includes("libs/login/")) ||
-                                       deletedFiles.some(f => f.includes("libs/login/"));
-    if (prContainsLibsLoginChanges) {
+    const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
+                                     createdFiles.some(f => f.includes(libsLogin)) ||
+                                     deletedFiles.some(f => f.includes(libsLogin));
+    if (containsLibsLoginChanges) {
         console.log("PR contains changes in /libs/login!");
+        const api = danger.github.api;
+        const pr = danger.github.thisPR
+        const WPLFA = "WordPress-Login-Flow-Android";
+        const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
+
+        // Create WPLFA branch
+        // Get HEAD for develop
+        const wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "refs/heads/develop");
+        console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
+
+        // Create ref (branch) based on HEAD
+        const wplfaMergeBranchSha = api.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
+        console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
+
+        // Apply changes
+        // Create PR
+            // Comment on PR 
+        // Poll for mergeability
+            // Comment on PR, fail if there are conflicts
     }
 };
