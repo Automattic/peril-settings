@@ -15,13 +15,10 @@ export default async () => {
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
     
-    console.log("### MPTEST ###");
-    console.log(Object.entries(await danger.github.api.repos.getAll()));
-    console.log("### MPTEST ###");
-
     const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
                                      createdFiles.some(f => f.includes(libsLogin)) ||
                                      deletedFiles.some(f => f.includes(libsLogin));
+
     if (containsLibsLoginChanges) {
         const api = danger.github.api;
         const pr = danger.github.pr
@@ -34,7 +31,11 @@ export default async () => {
         try {
             console.log("PR contains changes in /libs/login!");
             console.log(`PR's mergeable status is: ${pr.mergeable}`);
-    
+            
+            console.log("### MPTEST ###");
+            console.log(Object.entries(await danger.github.api.repos.getAll()));
+            console.log("### MPTEST ###");
+        
             // Get HEAD for develop
             console.log("About to get refs/heads/develop");
             const refs = api.gitdata.getReferences(pr.owner, WPLFA, "heads/");
