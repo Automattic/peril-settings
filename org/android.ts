@@ -34,7 +34,7 @@ export default async () => {
             
             console.log("### MPTEST ###");
             console.log(JSON.stringify(danger.github.thisPR));
-            console.log(JSON.stringify(api.orgs.listForAuthenticatedUser());
+            console.log(JSON.stringify(api.orgs.listForAuthenticatedUser()));
             // console.log(Object.entries(await danger.github.api.repos.getAll()));
             console.log("### MPTEST ###");
         
