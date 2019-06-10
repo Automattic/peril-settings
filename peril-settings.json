@@ -22,7 +22,7 @@
                 "wordpress-mobile/peril-settings@org/android.ts",
                 "wordpress-mobile/peril-settings@org/github/label.ts",
                 "wordpress-mobile/peril-settings@org/github/milestone.ts",
-                "wordpress-mobile/peril-settings@org/github/diff-szie.ts"
+                "wordpress-mobile/peril-settings@org/github/diff-size.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
@@ -30,7 +30,7 @@
                 "wordpress-mobile/peril-settings@org/ios-macos.ts",
                 "wordpress-mobile/peril-settings@org/github/label.ts",
                 "wordpress-mobile/peril-settings@org/github/milestone.ts",
-                "wordpress-mobile/peril-settings@org/github/diff-szie.ts"
+                "wordpress-mobile/peril-settings@org/github/diff-size.ts"
             ]
         },
         "woocommerce/woocommerce-android": {
@@ -38,7 +38,7 @@
                 "wordpress-mobile/peril-settings@org/android.ts",
                 "wordpress-mobile/peril-settings@org/github/label.ts",
                 "wordpress-mobile/peril-settings@org/github/milestone.ts",
-                "wordpress-mobile/peril-settings@org/github/diff-szie.ts"
+                "wordpress-mobile/peril-settings@org/github/diff-size.ts"
             ]
         },
         "Automattic/simplenote-ios": {
@@ -46,7 +46,7 @@
                 "wordpress-mobile/peril-settings@org/ios-macos.ts",
                 "wordpress-mobile/peril-settings@org/github/label.ts",
                 "wordpress-mobile/peril-settings@org/github/milestone.ts",
-                "wordpress-mobile/peril-settings@org/github/diff-szie.ts"
+                "wordpress-mobile/peril-settings@org/github/diff-size.ts"
             ]
         },
         "Automattic/simplenote-macos": {
