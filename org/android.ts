@@ -30,6 +30,7 @@ export default async () => {
         const pr = danger.github.thisPR
         const WPLFA = "WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
+        let wplfaMergeBranchSha;
 
         // Create WPLFA branch
         // Get HEAD for develop
@@ -39,7 +40,12 @@ export default async () => {
 
         // Create ref (branch) based on HEAD
         console.log("About to create branch");
-        const wplfaMergeBranchSha = api.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
+        try {
+            wplfaMergeBranchSha = api.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
+        }
+        catch (e) {
+            console.error(`!!! Caught error: ${e.message}`);
+        }
         console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
 
         // Apply changes
