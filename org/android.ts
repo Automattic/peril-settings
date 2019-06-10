@@ -33,10 +33,12 @@ export default async () => {
 
         // Create WPLFA branch
         // Get HEAD for develop
+        console.log("About go get refs/heads/develop");
         const wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "refs/heads/develop");
         console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
 
         // Create ref (branch) based on HEAD
+        console.log("About to create branch");
         const wplfaMergeBranchSha = api.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
         console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
 
