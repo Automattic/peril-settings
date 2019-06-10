@@ -38,7 +38,7 @@ export default async () => {
         try {
             // Get HEAD for develop
             console.log("About to get refs/heads/develop");
-            const refs = api.gitdata.listRefs(pr.owner, WPLFA, "heads/");
+            const refs = api.gitdata.getReferences(pr.owner, WPLFA, "heads/");
             console.log(refs);
             wplfaDevelopHead = api.gitdata.getReference(pr.owner, WPLFA, "heads/develop");
             console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
