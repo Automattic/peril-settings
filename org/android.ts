@@ -30,11 +30,11 @@ export default async () => {
         let wplfaMergeBranchSha;
         let wplfaDevelopHead;
         
-        console.log("PR contains changes in /libs/login!");
-        console.log(`PR's mergeable status is: ${pr.statuses['mergeable']}`);
-
         // Create WPLFA branch
         try {
+            console.log("PR contains changes in /libs/login!");
+            console.log(`PR's mergeable status is: ${pr.statuses['mergeable']}`);
+    
             // Get HEAD for develop
             console.log("About to get refs/heads/develop");
             const refs = api.gitdata.getReferences(pr.owner, WPLFA, "heads/");
