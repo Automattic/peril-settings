@@ -33,7 +33,7 @@ export default async () => {
             console.log(`PR's mergeable status is: ${pr.mergeable}`);
             
             console.log("### MPTEST ###");
-            console.log(Object.entries(await danger.github.api.repos.getAll()));
+            // console.log(Object.entries(await danger.github.api.repos.getAll()));
             console.log("### MPTEST ###");
         
             // Get HEAD for develop
