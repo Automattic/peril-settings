@@ -16,9 +16,10 @@ export default async () => {
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
 
-    console.log("Modified files: " + modifiedFiles.toString());
-    console.log("Created files: " + createdFiles.toString());
-    console.log("Deleted files: " + deletedFiles.toString());
+    // console.log("Modified files: " + modifiedFiles.toString());
+    // console.log("Created files: " + createdFiles.toString());
+    // console.log("Deleted files: " + deletedFiles.toString());
+    console.log(Object.entries(danger.github.thisPR));
     console.log("### MPTEST ###");
 
     const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
