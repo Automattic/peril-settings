@@ -33,7 +33,7 @@ export default async () => {
         // Create WPLFA branch
         try {
             console.log("PR contains changes in /libs/login!");
-            console.log(`PR's mergeable status is: ${pr.statuses['mergeable']}`);
+            console.log(`PR's mergeable status is: ${pr.mergeable}`);
     
             // Get HEAD for develop
             console.log("About to get refs/heads/develop");
