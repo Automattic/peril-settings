@@ -22,7 +22,7 @@ export default async () => {
     if (containsLibsLoginChanges) {
         const api = danger.github.api;
         const pr = danger.github.pr
-        const WPLFA = "markpar/WordPress-Login-Flow-Android";
+        const WPLFA = "WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
         let wplfaMergeBranchSha;
         let wplfaDevelopHead;
@@ -33,12 +33,14 @@ export default async () => {
             console.log(`PR's mergeable status is: ${pr.mergeable}`);
             
             console.log("### MPTEST ###");
+            console.log(JSON.stringify(danger.github.thisPR));
+            console.log(JSON.stringify(api.orgs.listForAuthenticatedUser());
             // console.log(Object.entries(await danger.github.api.repos.getAll()));
             console.log("### MPTEST ###");
         
             // Get HEAD for develop
             console.log("About to get refs/heads/develop");
-            const refs = await api.gitdata.getReferences(pr.owner, WPLFA, "heads/");
+            const refs = await api.gitdata.getReferences(pr.owner, WPLFA);
             console.log(refs);
             wplfaDevelopHead = api.gitdata.getReference("markpar", WPLFA, "heads/develop");
             console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
