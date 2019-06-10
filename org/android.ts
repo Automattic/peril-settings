@@ -26,7 +26,7 @@ export default async () => {
                                      deletedFiles.some(f => f.includes(libsLogin));
     if (containsLibsLoginChanges) {
         console.log("PR contains changes in /libs/login!");
-        const api = danger.github.api;
+        const api = danger.github.API;
         const pr = danger.github.thisPR
         const WPLFA = "WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
