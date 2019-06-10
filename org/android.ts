@@ -34,27 +34,22 @@ export default async () => {
         let wplfaDevelopHead;
 
         // Create WPLFA branch
-        // Get HEAD for develop
-        console.log("About go get refs/heads/develop");
         try {
-            const refs = api.listRefs(pr.owner, WPLFA, "heads/");
+            // Get HEAD for develop
+            console.log("About go get refs/heads/develop");
+            const refs = api.git.listRefs(pr.owner, WPLFA, "heads/");
             console.log(refs);
-            wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "heads/develop");
-        }
-        catch (e) {
-            console.error(`!!! Caught error: ${e.message}`);
-        }
-        console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
+            wplfaDevelopHead = api.git.getRef(pr.owner, WPLFA, "heads/develop");
+            console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
 
-        // Create ref (branch) based on HEAD
-        console.log("About to create branch");
-        try {
-            wplfaMergeBranchSha = api.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
+            // Create ref (branch) based on HEAD
+            console.log("About to create branch");
+            wplfaMergeBranchSha = api.git.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
+            console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
         }
         catch (e) {
             console.error(`!!! Caught error: ${e.message}`);
         }
-        console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
 
         // Apply changes
         // Create PR
