@@ -31,11 +31,17 @@ export default async () => {
         const WPLFA = "WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
         let wplfaMergeBranchSha;
+        let wplfaDevelopHead;
 
         // Create WPLFA branch
         // Get HEAD for develop
         console.log("About go get refs/heads/develop");
-        const wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "heads/develop");
+        try {
+            wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "heads/develop");
+        }
+        catch (e) {
+            console.error(`!!! Caught error: ${e.message}`);
+        }
         console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
 
         // Create ref (branch) based on HEAD
