@@ -15,7 +15,7 @@ export default async () => {
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
     
-    console.log("### MPTEST ###");
+    console.log("###                                                                                        ST ###");
     console.log(Object.entries(danger.github.pr.comments));
     console.log("### MPTEST ###");
 
@@ -39,7 +39,7 @@ export default async () => {
             console.log("About to get refs/heads/develop");
             const refs = api.gitdata.getReferences(pr.owner, WPLFA, "heads/");
             console.log(refs);
-            wplfaDevelopHead = api.gitdata.getReference(pr.owner, WPLFA, "heads/develop");
+            wplfaDevelopHead = api.gitdata.getReference("markpar", WPLFA, "heads/develop");
             console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead}`);
 
             // Create ref (branch) based on HEAD
