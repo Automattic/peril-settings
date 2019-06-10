@@ -28,7 +28,7 @@ export default async () => {
         console.log("PR contains changes in /libs/login!");
         const api = danger.github.api;
         const pr = danger.github.thisPR
-        const WPLFA = "WordPress-Login-Flow-Android";
+        const WPLFA = "markpar/WordPress-Login-Flow-Android";
         const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
         let wplfaMergeBranchSha;
         let wplfaDevelopHead;
@@ -37,6 +37,8 @@ export default async () => {
         // Get HEAD for develop
         console.log("About go get refs/heads/develop");
         try {
+            const refs = api.listRefs(pr.owner, WPLFA, "heads/");
+            console.log(refs);
             wplfaDevelopHead = api.getRef(pr.owner, WPLFA, "heads/develop");
         }
         catch (e) {
