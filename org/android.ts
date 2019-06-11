@@ -28,7 +28,7 @@ export default async () => {
 
         const api = danger.github.api;
         const pr = danger.github.thisPR;
-        const mergeBranch = `refs/heads/merge/${pr.repo}/${pr.number}`;
+        const mergeBranch = `merge/${pr.repo}/${pr.number}`;
         let mergeBranchHead: any;
         let destRepoHead: any;
         
@@ -42,7 +42,8 @@ export default async () => {
             // Look for an existing merge branch.
             console.log(`Looking for an existing merge branch: ${mergeBranch}`);
             try {
-                mergeBranchHead = (await api.gitdata.getReference({owner: org, repo: destRepo, ref: mergeBranch})).data.object.sha;
+                mergeBranchHead = (await api.gitdata.getReference({owner: org, repo: destRepo, ref: `heads/${mergeBranch}`})).data.object.sha;
+                console.log(`mergeBranchHead is ${mergeBranchHead}`);
             }
             catch (e) {
                 // The REST API returns a 404 if the request ref does not exist.
@@ -51,6 +52,8 @@ export default async () => {
                     mergeBranchHead = null;
                 }
                 else {
+                    console.log("### MPTEST ###");
+                    console.log(JSON.stringify(e));
                     throw(e);
                 }
             }
@@ -65,7 +68,7 @@ export default async () => {
                 // Create branch based on target repo branch HEAD.
                 // (i.e. `git checkout -b`.)
                 console.log(`Creating merge branch: ${mergeBranch}`);
-                mergeBranchHead = (await api.gitdata.createReference({owner: org, repo: destRepo, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
+                mergeBranchHead = (await api.gitdata.createReference({owner: org, repo: destRepo, ref: `refs/heads/${mergeBranch}`, sha: destRepoHead})).data.object.sha;
                 console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
             }
 
