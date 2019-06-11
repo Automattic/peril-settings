@@ -7,7 +7,7 @@ export default async () => {
         return;
     }
 
-    console.log(JSON.stringify(Object.entries(danger.github.api)));
+    console.log(Object.entries(danger.github.api));
 
     const githubLabels = danger.github.issue.labels;
 
