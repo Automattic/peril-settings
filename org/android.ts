@@ -33,16 +33,16 @@ export default async () => {
         try {
             console.log("PR contains changes in /libs/login!");
             // console.log(`PR's mergeable status is: ${pr.mergeable}`);
-            
+            console.log(JSON.stringify(danger.github.pr));            
             // Get HEAD for develop
             console.log(`Getting refs/heads/develop for ${org}/${WPLFA}`);
             destRepoHead = (await api.gitdata.getReference({owner: org, repo: WPLFA, ref: "heads/develop"})).data.object.sha;
             console.log(`Got refs/heads/develop for ${org}/${WPLFA}: SHA ${destRepoHead}`);
 
             // Create ref (branch) based on target repo branch HEAD
-            console.log(`Creating merge branch: ${mergeBranch}`);
-            mergeBranchHead = (await api.git.createReference({owner: org, repo: WPLFA, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
-            console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
+            // console.log(`Creating merge branch: ${mergeBranch}`);
+            // mergeBranchHead = (await api.gitdata.createReference({owner: org, repo: WPLFA, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
+            // console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
         }
         catch (e) {
             console.error(`!!! Caught error: ${e.message}`);
