@@ -20,35 +20,29 @@ export default async () => {
                                      deletedFiles.some(f => f.includes(libsLogin));
 
     if (containsLibsLoginChanges) {
+        const org = "markpar";
+        const WPLFA = "WordPress-Login-Flow-Android";
+
         const api = danger.github.api;
         const pr = danger.github.pr
-        const WPLFA = "WordPress-Login-Flow-Android";
-        const wplfaMergeBranchName = `refs/heads/merge_${pr.repo}_${pr.number}`;
-        let wplfaMergeBranchSha;
-        let wplfaDevelopHead;
+        const mergeBranch = `refs/heads/merge/${pr.repo}/${pr.number}`;
+        let mergeBranchHead: any;
+        let destRepoHead: any;
         
         // Create WPLFA branch
         try {
             console.log("PR contains changes in /libs/login!");
-            console.log(`PR's mergeable status is: ${pr.mergeable}`);
+            // console.log(`PR's mergeable status is: ${pr.mergeable}`);
             
-            // console.log("### MPTEST ###");
-            // console.log(JSON.stringify(danger.github.thisPR));
-            // console.log("### MPTEST ###");
-            // console.log(JSON.stringify(await api.repos.get({owner: "markpar", repo: "peril-settings"})));
-            // console.log("### MPTEST ###");
-        
             // Get HEAD for develop
-            console.log("About to get refs/heads/develop");
-            wplfaDevelopHead = await api.gitdata.getReference({owner: "markpar", repo: WPLFA, ref: "heads/develop"});
-            console.log(`refs/heads/develop for ${WPLFA} is ${JSON.stringify(wplfaDevelopHead)}`);
-            console.log(`refs/heads/develop for ${WPLFA} is ${Object.entries(wplfaDevelopHead)}`);
-            console.log(`refs/heads/develop for ${WPLFA} is ${wplfaDevelopHead.data.object.sha}`);
+            console.log(`Getting refs/heads/develop for ${org}/${WPLFA}`);
+            destRepoHead = (await api.gitdata.getReference({owner: org, repo: WPLFA, ref: "heads/develop"})).data.object.sha;
+            console.log(`Got refs/heads/develop for ${org}/${WPLFA}: SHA ${destRepoHead}`);
 
-            // Create ref (branch) based on HEAD
-            // console.log("About to create branch");
-            // wplfaMergeBranchSha = api.git.createRef(pr.owner, WPLFA, wplfaMergeBranchName, wplfaDevelopHead);
-            // console.log(`Created ref ${wplfaMergeBranchName}, got SHA ${wplfaMergeBranchSha}`);
+            // Create ref (branch) based on target repo branch HEAD
+            console.log(`Creating merge branch: ${mergeBranch}`);
+            mergeBranchHead = (await api.git.createReference({owner: org, repo: WPLFA, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
+            console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
         }
         catch (e) {
             console.error(`!!! Caught error: ${e.message}`);
