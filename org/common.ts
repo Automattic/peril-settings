@@ -7,8 +7,6 @@ export default async () => {
         return;
     }
 
-    console.log(Object.entries(danger.github.api));
-
     const githubLabels = danger.github.issue.labels;
 
     // A PR should have at least one label
