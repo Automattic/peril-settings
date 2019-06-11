@@ -24,7 +24,7 @@ export default async () => {
         const WPLFA = "WordPress-Login-Flow-Android";
 
         const api = danger.github.api;
-        const pr = danger.github.pr
+        const pr = danger.github.thisPR;
         const mergeBranch = `refs/heads/merge/${pr.repo}/${pr.number}`;
         let mergeBranchHead: any;
         let destRepoHead: any;
@@ -40,9 +40,9 @@ export default async () => {
             console.log(`Got refs/heads/develop for ${org}/${WPLFA}: SHA ${destRepoHead}`);
 
             // Create ref (branch) based on target repo branch HEAD
-            // console.log(`Creating merge branch: ${mergeBranch}`);
-            // mergeBranchHead = (await api.gitdata.createReference({owner: org, repo: WPLFA, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
-            // console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
+            console.log(`Creating merge branch: ${mergeBranch}`);
+            mergeBranchHead = (await api.gitdata.createReference({owner: org, repo: WPLFA, ref: mergeBranch, sha: destRepoHead})).data.object.sha;
+            console.log(`Created ${mergeBranch}, SHA ${mergeBranchHead}`);
         }
         catch (e) {
             console.error(`!!! Caught error: ${e.message}`);
