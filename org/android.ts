@@ -25,7 +25,8 @@ export default async () => {
         const org = "markpar";
         const destRepo = "WordPress-Login-Flow-Android";
         const destRepoBranch = "develop";
-
+        const commitMessage = "Auto-commit by Peril";
+        
         const api = danger.github.api;
         const pr = danger.github.thisPR;
         const utils = danger.github.utils;
@@ -38,6 +39,7 @@ export default async () => {
         try {
             modifiedFiles = modifiedFiles.map(f => f.replace(libsLogin,''));
             createdFiles = createdFiles.map(f => f.replace(libsLogin,''));
+            deletedFiles = deletedFiles.map(f => f.replace(libsLogin,''));
             console.log("Modified files: " + modifiedFiles.toString());
             console.log("Created files: " + createdFiles.toString());
             console.log("Deleted files: " + deletedFiles.toString());
@@ -86,7 +88,7 @@ export default async () => {
                 console.log(`Encoded contents: ${encodedContents.substr(0,15)}...`);
                 
                 console.log(`Creating ${file} in ${mergeBranch}`);
-                let commitSha = (await api.repos.createFile({owner: org, repo: destRepo, path: file, branch: mergeBranch, content: encodedContents, message: `Auto-commit by Peril`})).data.commit.sha;
+                let commitSha = (await api.repos.createFile({owner: org, repo: destRepo, path: file, branch: mergeBranch, content: encodedContents, message: commitMessage})).data.commit.sha;
                 console.log(`Created ${file}: SHA ${commitSha}`)
             }
 
@@ -99,15 +101,26 @@ export default async () => {
 
                 console.log("Getting contents");
                 let fileContents = await utils.fileContents(libsLogin + file);
-                // console.log(fileContents);
                 let encodedContents = Buffer.from(fileContents).toString('base64');
                 console.log(`Encoded contents: ${encodedContents.substr(0,15)}...`);
                 
                 console.log(`Updating ${file} in ${mergeBranch}`);
-                let commitSha = (await api.repos.updateFile({owner: org, repo: destRepo, path: file, sha: fileSha, branch: mergeBranch, content: encodedContents, message: `Auto-commit by Peril`})).data.commit.sha;
+                let commitSha = (await api.repos.updateFile({owner: org, repo: destRepo, path: file, sha: fileSha, branch: mergeBranch, content: encodedContents, message: commitMessage})).data.commit.sha;
                 console.log(`Updated ${file}: SHA ${commitSha}`)
             }
 
+            // Process deleted files.
+            for (let file of deletedFiles) {
+                console.log(`Processing deleted file ${file}`);
+                console.log("Getting SHA");
+                let fileSha = (await api.repos.getContent({owner: org, repo: destRepo, path: file})).data.sha;
+                console.log(`Got ${destRepo}/${file}: SHA ${fileSha}`);
+
+                console.log(`Deleting ${file} in ${mergeBranch}`);
+                let commitSha = (await api.repos.deleteFile({owner: org, repo: destRepo, path: file, sha: fileSha, branch: mergeBranch, message: commitMessage})).data.commit.sha;
+                console.log(`Deleted ${file}: SHA ${commitSha}`)
+            }
+            
             // Create PR
             // Comment on PR 
             // Poll for mergeability
