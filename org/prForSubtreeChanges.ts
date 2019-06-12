@@ -2,17 +2,18 @@ import {warn, danger} from "danger";
 
 export default async () => {
     
-    const libsLogin = "libs/login/";
+    const subtreePath = "libs/login/";
     let modifiedFiles = danger.git.modified_files;
     let createdFiles = danger.git.created_files;
     let deletedFiles = danger.git.deleted_files;
     
-    const containsLibsLoginChanges = modifiedFiles.some(f => f.includes(libsLogin)) || 
-                                     createdFiles.some(f => f.includes(libsLogin)) ||
-                                     deletedFiles.some(f => f.includes(libsLogin));
+    console.log(`Scanning PR for changes in ${subtreePath}`);
+    const containsSubtreeChanges = modifiedFiles.some(f => f.includes(subtreePath)) || 
+                                     createdFiles.some(f => f.includes(subtreePath)) ||
+                                     deletedFiles.some(f => f.includes(subtreePath));
 
-    if (containsLibsLoginChanges) {
-        console.log("PR contains changes in /libs/login!");
+    if (containsSubtreeChanges) {
+        console.log(`PR contains changes in ${subtreePath}`);
         
         const org = "markpar";
         const destRepo = "WordPress-Login-Flow-Android";
@@ -29,9 +30,9 @@ export default async () => {
         
         // Create WPLFA branch
         try {
-            modifiedFiles = modifiedFiles.map(f => f.replace(libsLogin,''));
-            createdFiles = createdFiles.map(f => f.replace(libsLogin,''));
-            deletedFiles = deletedFiles.map(f => f.replace(libsLogin,''));
+            modifiedFiles = modifiedFiles.map(f => f.replace(subtreePath,''));
+            createdFiles = createdFiles.map(f => f.replace(subtreePath,''));
+            deletedFiles = deletedFiles.map(f => f.replace(subtreePath,''));
             console.log("Modified files: " + modifiedFiles.toString());
             console.log("Created files: " + createdFiles.toString());
             console.log("Deleted files: " + deletedFiles.toString());
@@ -70,12 +71,12 @@ export default async () => {
 
             // Apply changes
             console.log("Apply changes to merge branch");
-            
+
             // Process new files.
             for (let file of createdFiles) {
                 console.log(`Processing new file ${file}`);
                 console.log("Getting contents...");
-                let fileContents = await utils.fileContents(libsLogin + file);
+                let fileContents = await utils.fileContents(subtreePath + file);
                 let encodedContents = Buffer.from(fileContents).toString('base64');
                 console.log(`Encoded contents: ${encodedContents.substr(0,15)}...`);
                 
@@ -92,7 +93,7 @@ export default async () => {
                 console.log(`Got ${destRepo}/${file}: SHA ${fileSha}`);
 
                 console.log("Getting contents");
-                let fileContents = await utils.fileContents(libsLogin + file);
+                let fileContents = await utils.fileContents(subtreePath + file);
                 let encodedContents = Buffer.from(fileContents).toString('base64');
                 console.log(`Encoded contents: ${encodedContents.substr(0,15)}...`);
                 
@@ -112,8 +113,12 @@ export default async () => {
                 let commitSha = (await api.repos.deleteFile({owner: org, repo: destRepo, path: file, sha: fileSha, branch: mergeBranch, message: commitMessage})).data.commit.sha;
                 console.log(`Deleted ${file}: SHA ${commitSha}`)
             }
-            
-            // Create PR
+
+            // Create the PR!
+            console.log("Creating PR!");
+            let response = await api.pullRequests.create({owner: org, repo: destRepo, title: "mptest title", base: destRepoBranch, head: mergeBranch});
+            console.log(JSON.stringify(response));
+
             // Comment on PR 
             // Poll for mergeability
             // Comment on PR, fail if there are conflicts
