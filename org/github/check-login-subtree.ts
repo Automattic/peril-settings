@@ -23,7 +23,7 @@ export default async () => {
         const destRepo = "WordPress-Login-Flow-Android";
         
         // Repo owner.
-        const org = "markpar";
+        const org = "wordpress-mobile";
         
         // Handy accessor for some PR info.
         const pr = danger.github.thisPR;
