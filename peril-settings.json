@@ -17,12 +17,13 @@
                 "Automattic/peril-settings@org/github/diff-size.ts"
             ]
         },
-        "wordpress-mobile/WordPress-Android": {
+        "markpar/WordPress-Android": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
-                "Automattic/peril-settings@org/android.ts",
-                "Automattic/peril-settings@org/github/label.ts",
-                "Automattic/peril-settings@org/github/milestone.ts",
-                "Automattic/peril-settings@org/github/diff-size.ts"
+                "markpar/peril-settings@org/android.ts",
+                "markpar/peril-settings@org/github/label.ts",
+                "markpar/peril-settings@org/github/milestone.ts",
+                "markpar/peril-settings@org/github/diff-size.ts",
+                "markpar/peril-settings@org/github/pr-for-subtree.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
