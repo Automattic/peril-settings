@@ -17,13 +17,13 @@
                 "Automattic/peril-settings@org/github/diff-size.ts"
             ]
         },
-        "markpar/WordPress-Android": {
+        "wordpress-mobile/WordPress-Android": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "markpar/peril-settings@org/android.ts",
                 "markpar/peril-settings@org/github/label.ts",
                 "markpar/peril-settings@org/github/milestone.ts",
                 "markpar/peril-settings@org/github/diff-size.ts",
-                "markpar/peril-settings@org/github/pr-for-subtree.ts"
+                "markpar/peril-settings@org/github/check-login-subtree.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
