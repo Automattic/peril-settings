@@ -1,5 +1,5 @@
 {
-  "license": "UNLICENSED",
+  "license": "GPLv2",
   "scripts": {
     "test": "jest"
   },
