@@ -1,4 +1,4 @@
-import {warn, danger} from "danger";
+import {message, danger} from "danger";
 
 /*
     This rule scans a PR for changes in a specific subtree and adds
@@ -41,6 +41,6 @@ export default async () => {
         markdownText += `3. \`git subtree push --prefix=${subtreePath} https://github.com/${org}/${destRepo}.git ${mergeBranch}\`\n`;
         markdownText += `4. Browse to https://github.com/${org}/${destRepo}/pull/new/${mergeBranch} and open a new PR.`;
         
-        warn(markdownText);
+        message(markdownText);
     }
 };

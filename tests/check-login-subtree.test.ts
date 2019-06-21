@@ -6,7 +6,7 @@ import checkLoginSubtree from "../org/github/check-login-subtree";
 
 // The mocked data and return values for calls the rule makes.
 beforeEach(() => {
-    dm.warn = jest.fn().mockReturnValue(true);
+    dm.message = jest.fn().mockReturnValue(true);
 
     dm.danger = {
         git: {
@@ -31,9 +31,9 @@ describe("/libs/login subtree check", () => {
         await checkLoginSubtree();
         
         // First, check that the merge instructions appear correct.
-        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes in the subtree `libs/login/`"));
+        expect(dm.message).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes in the subtree `libs/login/`"));
         
         // Then, ensure a piece of mock data is present.
-        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining(dm.danger.github.thisPR.repo));
+        expect(dm.message).toHaveBeenCalledWith(expect.stringContaining(dm.danger.github.thisPR.repo));
     })
 })
