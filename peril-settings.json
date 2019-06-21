@@ -39,7 +39,8 @@
                 "Automattic/peril-settings@org/android.ts",
                 "Automattic/peril-settings@org/github/label.ts",
                 "Automattic/peril-settings@org/github/milestone.ts",
-                "Automattic/peril-settings@org/github/diff-size.ts"
+                "Automattic/peril-settings@org/github/diff-size.ts",
+                "Automattic/peril-settings@org/github/check-login-subtree.ts"
             ]
         },
         "Automattic/simplenote-ios": {
