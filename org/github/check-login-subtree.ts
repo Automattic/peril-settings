@@ -36,6 +36,7 @@ export default async () => {
 
         // Put it all together! 
         markdownText = `This PR contains changes in the subtree \`${subtreePath}\`.  It is your responsibility to ensure these changes are merged back into \`${destRepo}\`.  Follow these handy steps!\n`;
+        markdownText += `WARNING: *Make sure your git version is 2.19.x or lower* - there is currently a bug in later versions that will corrupt the subtree history!\n`;
         markdownText += `1. \`cd ${pr.repo}\`\n`;
         markdownText += `2. \`git checkout ${danger.github.pr.head.ref}\`\n`;
         markdownText += `3. \`git subtree push --prefix=${subtreePath} https://github.com/${org}/${destRepo}.git ${mergeBranch}\`\n`;
