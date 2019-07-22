@@ -13,6 +13,9 @@
                 "Automattic/peril-settings@org/pr/github/label.ts",
                 "Automattic/peril-settings@org/pr/github/milestone.ts",
                 "Automattic/peril-settings@org/pr/github/diff-size.ts"
+            ],
+            "issue.opened, issue.labeled, issue.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
             ]
         },
         "wordpress-mobile/WordPress-Android": {
@@ -22,6 +25,9 @@
                 "Automattic/peril-settings@org/pr/github/milestone.ts",
                 "Automattic/peril-settings@org/pr/github/diff-size.ts",
                 "Automattic/peril-settings@org/pr/github/check-login-subtree.ts"
+            ],
+            "issue.opened, issue.labeled, issue.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
