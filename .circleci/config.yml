@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@0.0.8
+
 jobs:
   Test:
     docker:
@@ -25,8 +28,25 @@ jobs:
             JEST_JUNIT_OUTPUT: "reports/test-results/test-results.xml"
       - store_test_results:
           path: ./reports/test-results
+  Restart:
+    executor: heroku/default
+    steps:
+      - heroku/install
+      - run:
+          name: Restart automattic-peril
+          command: heroku restart -a automattic-peril
+      - run:
+          name: Restart wordpress-mobile-peril
+          command: heroku restart -a wordpress-mobile-peril
+      - run:
+          name: Restart woocommerce-peril
+          command: heroku restart -a woocommerce-peril
 
 workflows:
   peril-settings:
     jobs:
       - Test
+      - Restart:
+          filters:
+            branches:
+              only: master
