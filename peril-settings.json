@@ -14,7 +14,7 @@
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts"
             ],
-            "issue.opened, issue.labeled, issue.unlabeled": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ]
         },
@@ -26,7 +26,7 @@
                 "Automattic/peril-settings@org/pr/diff-size.ts",
                 "Automattic/peril-settings@org/pr/check-login-subtree.ts"
             ],
-            "issue.opened, issue.labeled, issue.unlabeled": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ]
         },
