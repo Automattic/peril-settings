@@ -2,7 +2,7 @@ jest.mock("danger", () => jest.fn());
 import danger from "danger";
 const dm = danger as any;
 
-import checkLoginSubtree from "../org/github/check-login-subtree";
+import checkLoginSubtree from "../org/pr/check-login-subtree";
 
 // The mocked data and return values for calls the rule makes.
 beforeEach(() => {
