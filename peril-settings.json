@@ -28,6 +28,9 @@
             ],
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "status.success": [
+                "Automattic/peril-settings@org/pr/android-installable-build.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
