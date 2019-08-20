@@ -374,6 +374,11 @@
   dependencies:
     "@types/jest-diff" "*"
 
+"@types/node@^12.7.2":
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.2.tgz#c4e63af5e8823ce9cc3f0b34f7b998c2171f0c44"
+  integrity sha512-dyYO+f6ihZEtNPDcWNR1fkoTDf3zAK3lAABDze3mz6POyIercH0lEUawUFXlG8xaQZmm1yEBON/4TsYv/laDYg==
+
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
@@ -1308,6 +1313,11 @@ git-config-path@^1.0.1:
     extend-shallow "^2.0.1"
     fs-exists-sync "^0.1.0"
     homedir-polyfill "^1.0.0"
+
+github-webhook-event-types@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/github-webhook-event-types/-/github-webhook-event-types-1.2.1.tgz#3427ec2d7625457ef9c1bac5e929cb59b63bd667"
+  integrity sha512-S0/O8tggnJwNYx4Gp39pgarBjO9/bY5/PAY8zlx8HuacWVULqk05M9wmZ0n42ueN+YSPWx/1BAItBKzv//4GfA==
 
 gitlab@^6.0.0:
   version "6.3.7"
