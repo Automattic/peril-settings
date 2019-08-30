@@ -48,6 +48,9 @@
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts",
                 "Automattic/peril-settings@org/pr/check-login-subtree.ts"
+            ],
+            "status.success": [
+                "Automattic/peril-settings@org/pr/android-installable-build.ts"
             ]
         },
         "Automattic/simplenote-ios": {
