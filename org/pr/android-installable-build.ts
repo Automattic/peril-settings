@@ -23,7 +23,7 @@ export default async (status: Status) => {
       )
     }
 
-    if (status.context !== "ci/circleci: Installable Build") {
+    if (status.context !== "ci/circleci: Installable Build" && status.context !== "ci/circleci: Test Android on Device") {
         return console.log(
           `Not an installable build status check - got ${status.context}`
         )
