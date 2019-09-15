@@ -70,15 +70,15 @@
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/label.ts"
-            ],
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
             ]
         },
         "Automattic/simplenote-android": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android.ts",
                 "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "status.success": [
+                "Automattic/peril-settings@org/pr/android-installable-build.ts"
             ]
         }
     }
