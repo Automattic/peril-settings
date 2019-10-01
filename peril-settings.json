@@ -80,6 +80,11 @@
             "status.success": [
                 "Automattic/peril-settings@org/pr/android-installable-build.ts"
             ]
+        },
+        "Automattic/portkey-android": {
+            "status.success": [
+                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            ]
         }
     }
 }
