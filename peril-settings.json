@@ -16,6 +16,9 @@
             ],
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "status.pending": [
+                "Automattic/peril-settings@org/pr/force-circleci-status.ts"
             ]
         },
         "wordpress-mobile/WordPress-Android": {
