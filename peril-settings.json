@@ -17,8 +17,8 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "status.pending": [
-                "Automattic/peril-settings@org/pr/force-circleci-status.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "wordpress-mobile/WordPress-Android": {
@@ -32,13 +32,13 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "wordpress-mobile/gutenberg-mobile": {
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
@@ -57,8 +57,8 @@
                 "Automattic/peril-settings@org/pr/diff-size.ts",
                 "Automattic/peril-settings@org/pr/check-subtrees.ts"
             ],
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "Automattic/simplenote-ios": {
@@ -80,13 +80,13 @@
                 "Automattic/peril-settings@org/pr/android.ts",
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "Automattic/portkey-android": {
-            "status.success": [
-                "Automattic/peril-settings@org/pr/android-installable-build.ts"
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         }
     }
