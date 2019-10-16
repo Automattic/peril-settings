@@ -19,7 +19,7 @@ beforeEach(() => {
       }
       return {
           ok: true,
-          json: () => result
+          json: () => { return Promise.resolve(result) }
       }
     })
 

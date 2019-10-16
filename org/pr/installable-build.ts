@@ -113,7 +113,8 @@ async function getDownloadCommentText(status) {
     // Download the JSON file so we can get the comment text
     const res = await fetch(commentJsonArtifact.url)
     if (res.ok) {
-      return res.json()["body"]
+      const comment = await res.json()
+      return comment.body
     }
   }
 
