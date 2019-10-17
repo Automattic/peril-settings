@@ -47,10 +47,10 @@ export default async () => {
         // Put it all together! 
         messageText = `This PR contains changes to Tracks-related logic. Please ensure the following are completed:\n`;
         messageText += `**PR Author**\n`;
-        messageText += `[] The PR must be assigned the **Tracks** label\n`;
+        messageText += `- The PR must be assigned the **Tracks** label\n`;
         messageText += `**PR Reviewer**\n`;
-        messageText += `[] The tracks events must be validated in the Tracks system.`;
-        messageText += `[] Verify the internal tracks spreadsheet has also been updated.`;
+        messageText += `- The tracks events must be validated in the Tracks system.\n`;
+        messageText += `- Verify the internal tracks spreadsheet has also been updated.`;
             
         message(messageText);
         console.log(`Done.`);
