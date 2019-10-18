@@ -47,6 +47,9 @@
                 "Automattic/peril-settings@org/pr/label.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts"
+            ],
+            "status": [
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "woocommerce/woocommerce-android": {
