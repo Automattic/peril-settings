@@ -25,15 +25,14 @@ async function checkTracksManagementFiles() {
 async function checkCommitDiffs() {
     let hasChanges: boolean = false;
     
-    console.log("Searching for changes in the following files:")
-    console.log(danger.git.modified_files);
+    const git = danger.git
 
-    for (let thisFile of danger.git.modified_files) {
+    for (let thisFile of git.modified_files) {
 
         // Look for subtree changes in the PR.
         console.log(`Scanning changes in ${thisFile}.`);
 
-        if (danger.git === undefined) {
+        if (git === undefined) {
             console.log("About to crash due to an error")
             console.log("File:", thisFile)
             console.log("Danger Object: ", danger)
@@ -47,7 +46,7 @@ async function checkCommitDiffs() {
             }
         }
 
-        const diff = await danger.git.diffForFile(thisFile);
+        const diff = await git.diffForFile(thisFile);
         if (/AnalyticsTracker\.track/.test(diff.diff)) {
             hasChanges = true;
         }
