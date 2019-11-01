@@ -37,8 +37,14 @@ async function checkCommitDiffs() {
             console.log("About to crash due to an error")
             console.log("File:", thisFile)
             console.log("Danger Object: ", danger)
-            console.log("Danger Git Object: ", danger.git)
-            console.log("Danger API Git Object", danger.api.git)
+
+            if (danger !== undefined) {
+                console.log("Danger is no longer defined")
+            }
+            else {
+                console.log("Danger API Git Object", danger.api.git)
+                console.log("Danger Git Object: ", danger.git)
+            }
         }
 
         const diff = await danger.git.diffForFile(thisFile);
