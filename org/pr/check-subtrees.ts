@@ -21,12 +21,16 @@ export default async () => {
         path: "libs/mocks/"
     }];
 
+    const modifiedFiles = danger.git.modified_files;
+    const createdFiles = danger.git.created_files;
+    const deletedFiles = danger.git.deleted_files;
+
     for (let subtree of subtrees) {
         // Look for subtree changes in the PR.
         console.log(`Scanning PR for changes in ${subtree.path}.`);
-        const containsSubtreeChanges = danger.git.modified_files.some(f => f.includes(subtree.path)) ||
-                                    danger.git.created_files.some(f => f.includes(subtree.path)) ||
-                                    danger.git.deleted_files.some(f => f.includes(subtree.path));
+        const containsSubtreeChanges = modifiedFiles.some(f => f.includes(subtree.path)) ||
+                                    createdFiles.some(f => f.includes(subtree.path)) ||
+                                    deletedFiles.some(f => f.includes(subtree.path));
 
         // If we found changes in the subtree folder, add instructions to the PR.
         if (containsSubtreeChanges) {
