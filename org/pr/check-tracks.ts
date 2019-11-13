@@ -12,11 +12,13 @@ async function checkTracksManagementFiles() {
         "LoginAnalyticsTracker.kt"
     ];
 
+    const modifiedFiles = danger.git.modified_files;
+
     let hasChanges: boolean = false;
     for (let thisFile of tracksFiles) {
         // Look for subtree changes in the PR.
         console.log(`Scanning PR for changes in ${thisFile}.`);
-        hasChanges = hasChanges || danger.git.modified_files.some(f => f.includes(thisFile));
+        hasChanges = hasChanges || modifiedFiles.some(f => f.includes(thisFile));
     }
 
     return hasChanges;
