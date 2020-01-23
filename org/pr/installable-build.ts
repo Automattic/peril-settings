@@ -98,8 +98,22 @@ async function circleCIArtifacts(status) {
 
   const artifactsUrl = `https://circleci.com/api/v1.1/project/gh/${owner}/${repo}/${buildNumber}/artifacts?circle-token=${CIRCLECI_TOKEN}`
 
+  // <Debug: Remove me>
+  const hasToken = CIRCLECI_TOKEN === undefined
+
+  console.log(
+    `Artifacts fetching configuration - '${owner}' - '${repo}' - '${buildNumber}' - '${hasToken}'`
+  )
+  // </Debug: Remove me>
+
   const res = await fetch(artifactsUrl)
   if (res.ok) {
+    // <Debug: Remove me>
+    console.log(
+    `Artifacts JSON - '${res.json}'`
+    )
+    // </Debug: Remove me>
+
     return res.json()
   }
   return []
@@ -109,6 +123,12 @@ async function getDownloadCommentText(status) {
   const artifacts = await circleCIArtifacts(status)
 
   const commentJsonArtifact = artifacts.find(artifact => artifact.path.endsWith("comment.json"))
+  // <Debug: Remove me>
+  console.log(
+    `Comment JSON - '${commentJsonArtifact}'`
+  )
+  // </Debug: Remove me>
+
   if (commentJsonArtifact) {
     // Download the JSON file so we can get the comment text
     const res = await fetch(commentJsonArtifact.url)
