@@ -108,12 +108,6 @@ async function circleCIArtifacts(status) {
 
   const res = await fetch(artifactsUrl)
   if (res.ok) {
-    // <Debug: Remove me>
-    console.log(
-    `Artifacts JSON - '${res.json()}'`
-    )
-    // </Debug: Remove me>
-
     return res.json()
   }
   return []
