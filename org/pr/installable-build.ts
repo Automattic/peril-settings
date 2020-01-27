@@ -139,7 +139,7 @@ async function getDownloadCommentText(status) {
     else {
       // <Debug: Remove me>
       console.log(
-        `Wrong commentJsonArtifact`
+        `Wrong commentJsonArtifact: ${res.statusText}`
         )
       // </Debug: Remove me>
     }
