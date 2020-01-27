@@ -110,7 +110,7 @@ async function circleCIArtifacts(status) {
   if (res.ok) {
     // <Debug: Remove me>
     console.log(
-    `Artifacts JSON - '${res.json}'`
+    `Artifacts JSON - '${res.json()}'`
     )
     // </Debug: Remove me>
 
@@ -123,18 +123,31 @@ async function getDownloadCommentText(status) {
   const artifacts = await circleCIArtifacts(status)
 
   const commentJsonArtifact = artifacts.find(artifact => artifact.path.endsWith("comment.json"))
-  // <Debug: Remove me>
-  console.log(
-    `Comment JSON - '${commentJsonArtifact}'`
-  )
-  // </Debug: Remove me>
 
   if (commentJsonArtifact) {
+    // <Debug: Remove me>
+    console.log(
+      `Comment JSON - '${commentJsonArtifact.url}'`
+    )
+    // </Debug: Remove me>
+    
     // Download the JSON file so we can get the comment text
     const res = await fetch(commentJsonArtifact.url)
     if (res.ok) {
       const comment = await res.json()
+      // <Debug: Remove me>
+      console.log(
+        `Comment body: '${comment.body}'`
+        )
+      // </Debug: Remove me>
       return comment.body
+    }
+    else {
+      // <Debug: Remove me>
+      console.log(
+        `Wrong commentJsonArtifact`
+        )
+      // </Debug: Remove me>
     }
   }
 
