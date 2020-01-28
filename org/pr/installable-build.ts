@@ -115,6 +115,10 @@ async function getDownloadCommentText(status) {
     if (res.ok) {
       const comment = await res.json()
       return comment.body
+    } else {
+      console.log(
+        `Error while trying to download comment.json: ${res.statusText}`
+      )
     }
   }
 
