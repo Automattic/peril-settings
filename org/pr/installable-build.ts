@@ -111,7 +111,8 @@ async function getDownloadCommentText(status) {
   const commentJsonArtifact = artifacts.find(artifact => artifact.path.endsWith("comment.json"))
   if (commentJsonArtifact) {
     // Download the JSON file so we can get the comment text
-    const res = await fetch(commentJsonArtifact.url)
+    const commentJsonArtifactUrl = `${commentJsonArtifact.url}?circle-token=${CIRCLECI_TOKEN}`
+    const res = await fetch(commentJsonArtifactUrl)
     if (res.ok) {
       const comment = await res.json()
       return comment.body
