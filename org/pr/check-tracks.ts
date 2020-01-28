@@ -43,7 +43,6 @@ async function checkCommitDiffs() {
                 console.log("Danger is no longer defined")
             }
             else {
-                console.log("Danger API Git Object", danger.api.git)
                 console.log("Danger Git Object: ", danger.git)
             }
         }
