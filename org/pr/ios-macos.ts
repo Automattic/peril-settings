@@ -3,7 +3,8 @@ import {message, warn, fail, danger} from "danger";
 export default async () => {
 
     const pr = danger.github.pr;
-
+    const githubLabels = danger.github.issue.labels;
+    
     // Core Data Model Safety Checks
     const targetReleaseBranch = pr.base.ref.startsWith("release/");
     const modifiedFiles = danger.git.modified_files;
@@ -32,7 +33,6 @@ export default async () => {
     }
 
     // Let users know that we're skipping tests on release PRs
-    const githubLabels = danger.github.issue.labels;
     const isReleasePr = (githubLabels.length != 0) && githubLabels.some(label => label.name.includes("Releases"));
     if (isReleasePr) {
         message("This PR has the 'Releases' label: some checks will be skipped.");
