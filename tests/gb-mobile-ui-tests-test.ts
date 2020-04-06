@@ -60,8 +60,8 @@ describe("gutenberg mobile ui tests handling", () => {
         await optionalTests({ state: "fail", context: "Failure context" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'Failure context' (fail)")
 
-        await optionalTests({ state: "success", context: "ci/circleci: Test Android on Device" } as any)
-        expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test Android on Device' (success)")
+        // await optionalTests({ state: "success", context: "ci/circleci: Test Android on Device" } as any)
+        // expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test Android on Device' (success)")
 
         await optionalTests({ state: "success", context: "ci/circleci: Test iOS on Device" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test iOS on Device' (success)")
@@ -70,7 +70,7 @@ describe("gutenberg mobile ui tests handling", () => {
     it("updates the status to be 'success' when it is the right context, and comments", async () => {
         const webhook: any = {
             state: "pending",
-            context: [ "ci/circleci: Test iOS on Device", "ci/circleci: Test Android on Device" ],
+            context: "ci/circleci: Test iOS on Device",// "ci/circleci: Test Android on Device" ],
             description: "Holding build",
             target_url: "https://circleci.com/workflow-run/abcdefg",
             repository: {
