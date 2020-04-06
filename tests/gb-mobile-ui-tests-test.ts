@@ -67,7 +67,7 @@ describe("gutenberg mobile ui tests handling", () => {
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test iOS on Device' (success)")
     })
 
-    it("updates the status to be Android on device 'success' when it is the right context, and comments", async () => {
+    it("updates the status to be iOS on device 'success' when it is the right context, and comments", async () => {
         const webhook: any = {
             state: "pending",
             context: "ci/circleci: Test iOS on Device",
