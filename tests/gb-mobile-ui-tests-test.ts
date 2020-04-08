@@ -59,7 +59,7 @@ describe("gutenberg mobile ui tests handling", () => {
     it("bails when its not a status/state we want to handle", async () => {
         await optionalTests({ state: "fail", context: "Failure context" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'Failure context' (fail)")
-        
+
         await optionalTests({ state: "success", context: "ci/circleci: Test iOS on Device" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test iOS on Device' (success)")
     })
@@ -87,6 +87,6 @@ describe("gutenberg mobile ui tests handling", () => {
             target_url: webhook.target_url,
         })
 
-        expectComment(webhook, `You can trigger optional full suite of UI tests for these changes by visiting CircleCI [here](${webhook.target_url}).`)
+        expectComment(webhook, `You can trigger optional full suite of Android and iOS UI tests for these changes by visiting CircleCI [here](${webhook.target_url}).`)
     })
 })
