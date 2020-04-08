@@ -4,7 +4,7 @@ import { Status } from "github-webhook-event-types"
 const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 
 // This is a list of the CircleCI statuses to process
-const HOLD_CONTEXTS: string[] = ["ci/circleci: gutenberg-mobile/Optional UI Tests "]
+const HOLD_CONTEXTS: string[] = ["ci/circleci: gutenberg-mobile/Optional UI Tests"]
 
 async function markStatusAsSuccess(status) {
   console.log(`Updating ${status.context} state to be success`)
