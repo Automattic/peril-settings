@@ -4,7 +4,7 @@ import { Status } from "github-webhook-event-types"
 const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 
 // This is a list of the CircleCI statuses to process
-const HOLD_CONTEXTS: string[] = ["ci/circleci: Test Android on Device", "ci/circleci: Test iOS on Device"]
+const HOLD_CONTEXTS: string[] = ["ci/circleci: gutenberg-mobile/Optional UI Tests "]
 
 async function markStatusAsSuccess(status) {
   console.log(`Updating ${status.context} state to be success`)
@@ -85,7 +85,7 @@ export async function createOrUpdateComment(status, message) {
 export default async (status: Status) => {
   if (status.state == "pending" && HOLD_CONTEXTS.includes(status.context)) {
     await markStatusAsSuccess(status)
-    await createOrUpdateComment(status, `You can trigger optional full suite of UI tests for these changes by visiting CircleCI [here](${status.target_url}).`)
+    await createOrUpdateComment(status, `You can trigger optional full suite of Android and iOS UI tests for these changes by visiting CircleCI [here](${status.target_url}).`)
   } else {
     return console.log(
         `Not a status we want to process for optional tests - got '${status.context}' (${status.state})`
