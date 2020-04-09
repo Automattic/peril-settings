@@ -87,6 +87,6 @@ describe("gutenberg mobile ui tests handling", () => {
             target_url: webhook.target_url,
         })
 
-        expectComment(webhook, `Wanna run full suite of Android and iOS UI tests? Click [here](${status.target_url}) and 'Approve' CI job!`)
+        expectComment(webhook, `Wanna run full suite of Android and iOS UI tests? Click [here](${webhook.target_url}) and 'Approve' CI job!`)
     })
 })
