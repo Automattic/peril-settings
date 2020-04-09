@@ -85,7 +85,7 @@ export async function createOrUpdateComment(status, message) {
 export default async (status: Status) => {
   if (status.state == "pending" && HOLD_CONTEXTS.includes(status.context)) {
     await markStatusAsSuccess(status)
-    await createOrUpdateComment(status, `You can trigger optional full suite of Android and iOS UI tests for these changes by visiting CircleCI [here](${status.target_url}).`)
+    await createOrUpdateComment(status, `Wanna run full suite of Android and iOS UI tests? Click [here](${status.target_url}) and 'Approve' CI job!`)
   } else {
     return console.log(
         `Not a status we want to process for optional tests - got '${status.context}' (${status.state})`
