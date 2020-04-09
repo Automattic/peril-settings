@@ -60,43 +60,14 @@ describe("gutenberg mobile ui tests handling", () => {
         await optionalTests({ state: "fail", context: "Failure context" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'Failure context' (fail)")
 
-        // await optionalTests({ state: "success", context: "ci/circleci: Test Android on Device" } as any)
-        // expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test Android on Device' (success)")
-
         await optionalTests({ state: "success", context: "ci/circleci: Test iOS on Device" } as any)
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Test iOS on Device' (success)")
     })
 
-    it("updates the status to be iOS on device 'success' when it is the right context, and comments", async () => {
+    it("updates the status to be 'success' when it is the right context, and comments", async () => {
         const webhook: any = {
             state: "pending",
-            context: "ci/circleci: Test iOS on Device",
-            description: "Holding build",
-            target_url: "https://circleci.com/workflow-run/abcdefg",
-            repository: {
-                name: 'Repo',
-                owner: { login: 'Owner' }
-            },
-            commit: { sha: 'abc' }
-        }
-        await optionalTests(webhook)
-
-        expect(dm.danger.github.api.repos.createStatus).toBeCalledWith({
-            owner: webhook.repository.owner.login,
-            repo: webhook.repository.name,
-            state: "success",
-            context: webhook.context,
-            description: webhook.description,
-            target_url: webhook.target_url,
-        })
-
-        expectComment(webhook, `You can trigger optional full suite of UI tests for these changes by visiting CircleCI [here](${webhook.target_url}).`)
-    })
-
-    it("updates the status to be Android on device 'success' when it is the right context, and comments", async () => {
-        const webhook: any = {
-            state: "pending",
-            context: "ci/circleci: Test Android on Device",
+            context: "ci/circleci: gutenberg-mobile/Optional UI Tests",
             description: "Holding build",
             target_url: "https://circleci.com/workflow-run/abcdefg",
             repository: {
