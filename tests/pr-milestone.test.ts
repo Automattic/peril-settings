@@ -27,7 +27,7 @@ describe("PR milestone checks", () => {
         dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
 
         await milestone();
-        
+
         expect(dm.warn).toHaveBeenCalledWith("PR is not assigned to a milestone.");
     })
 
@@ -35,11 +35,11 @@ describe("PR milestone checks", () => {
         dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: [{ number: 1 }] } }))
 
         await milestone();
-        
+
         expect(dm.warn).not.toHaveBeenCalled();
     })
 
-    it("does not warns with missing milestone and releases label", async () => {
+    it("does not warn with missing milestone and releases label", async () => {
         dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
 
         dm.danger.github.issue.labels = [
@@ -49,7 +49,24 @@ describe("PR milestone checks", () => {
         ]
 
         await milestone();
-        
+
+        expect(dm.warn).not.toHaveBeenCalled();
+    })
+
+    it("does not warn with missing milestone and feature group labels", async () => {
+        dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
+
+        dm.danger.github.issue.labels = [
+            {
+                name: 'Part of a Feature Group',
+            },
+            {
+                name: 'WIP Feature'
+            }
+        ]
+
+        await milestone();
+
         expect(dm.warn).not.toHaveBeenCalled();
     })
 })
