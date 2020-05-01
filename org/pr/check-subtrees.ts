@@ -15,10 +15,6 @@ export default async () => {
     const subtrees: Subtree[] = [{
         repo: "wordpress-mobile/WordPress-Login-Flow-Android",
         path: "libs/login/"
-    },
-    {
-        repo: "wordpress-mobile/WordPressMocks",
-        path: "libs/mocks/"
     }];
 
     const modifiedFiles = danger.git.modified_files;
