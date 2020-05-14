@@ -1,18 +1,24 @@
 import {warn, danger} from "danger";
 
 export default async () => {
-    // Skip for release PRs and PRs against feature branches
     const githubLabels = danger.github.issue.labels;
-    const pr = danger.github.pr;
+    const currentPR = await danger.github.api.pulls.get(danger.github.thisPR);
+
+    // Skip for draft PRs
+    if (currentPR.data.draft) {
+        return;
+    }
 
     if (githubLabels.length != 0) {
+        // Skip for PRs with "Releases" label
         const releases = githubLabels.some(label => label.name.includes("Releases"));
         if (releases) {
             return;
         }
 
-        const targetsDevelop = pr.base.ref == "develop";
-        const targetsRelease = pr.base.ref.startsWith("release/");
+        // Skip for PRs for wip features unless the PR is against "develop" or "release/x.x" branches
+        const targetsDevelop = danger.github.pr.base.ref == "develop";
+        const targetsRelease = danger.github.pr.base.ref.startsWith("release/");
         const wipFeature = githubLabels.some(label => label.name.includes("Part of a WIP Feature"));
         if (!targetsDevelop && !targetsRelease && wipFeature) {
             return;
@@ -20,8 +26,7 @@ export default async () => {
     }
 
     // Warn if the PR doesn't have a milestone
-    const issue = await danger.github.api.issues.get(danger.github.thisPR);
-    if (issue.data.milestone == null) {
+    if (currentPR.data.milestone == null) {
         warn("PR is not assigned to a milestone.");
     }
 };
