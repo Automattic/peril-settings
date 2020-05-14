@@ -10,7 +10,6 @@
         "wordpress-mobile/WordPress-iOS": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts"
             ],
