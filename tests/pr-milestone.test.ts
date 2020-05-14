@@ -53,16 +53,13 @@ describe("PR milestone checks", () => {
         expect(dm.warn).not.toHaveBeenCalled();
     })
 
-    it("does not warn with missing milestone and feature group labels", async () => {
+    it("does not warn with missing milestone and wip feature label", async () => {
         dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
 
         dm.danger.github.issue.labels = [
             {
-                name: 'Part of a Feature Group',
+                name: 'Part of a WIP Feature',
             },
-            {
-                name: 'WIP Feature'
-            }
         ]
 
         await milestone();

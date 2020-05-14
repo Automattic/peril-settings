@@ -6,9 +6,12 @@ export default async () => {
 
     if (githubLabels.length != 0) {
         const releases = githubLabels.some(label => label.name.includes("Releases"));
-        const featureGroup = githubLabels.some(label => label.name.includes("Part of a Feature Group"));
-        const wipFeature = githubLabels.some(label => label.name.includes("WIP Feature"));
-        if (releases || (featureGroup && wipFeature)) {
+        if (releases) {
+            return;
+        }
+
+        const wipFeature = githubLabels.some(label => label.name.includes("Part of a WIP Feature"));
+        if (wipFeature) {
             return;
         }
     }
