@@ -17,6 +17,11 @@ beforeEach(() => {
             },
             issue: {
                 labels: [],
+            },
+            pr: {
+                base: {
+                    ref: "",
+                },
             }
         },
     };
@@ -51,6 +56,36 @@ describe("PR milestone checks", () => {
         await milestone();
 
         expect(dm.warn).not.toHaveBeenCalled();
+    })
+
+    it("warns with missing milestone and wip feature label if the base branch is develop", async () => {
+        dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
+
+        dm.danger.github.issue.labels = [
+            {
+                name: 'Part of a WIP Feature',
+            },
+        ]
+        dm.danger.github.pr.base.ref="develop";
+
+        await milestone();
+
+        expect(dm.warn).toHaveBeenCalledWith("PR is not assigned to a milestone.");
+    })
+
+    it("warns with missing milestone and wip feature label if the base branch is release", async () => {
+        dm.danger.github.api.issues.get.mockReturnValueOnce(Promise.resolve({ data: { milestone: null } }))
+
+        dm.danger.github.issue.labels = [
+            {
+                name: 'Part of a WIP Feature',
+            },
+        ]
+        dm.danger.github.pr.base.ref="release/1.2";
+
+        await milestone();
+
+        expect(dm.warn).toHaveBeenCalledWith("PR is not assigned to a milestone.");
     })
 
     it("does not warn with missing milestone and wip feature label", async () => {

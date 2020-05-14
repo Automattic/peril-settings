@@ -3,6 +3,7 @@ import {warn, danger} from "danger";
 export default async () => {
     // Skip for release PRs and PRs against feature branches
     const githubLabels = danger.github.issue.labels;
+    const pr = danger.github.pr;
 
     if (githubLabels.length != 0) {
         const releases = githubLabels.some(label => label.name.includes("Releases"));
@@ -10,8 +11,10 @@ export default async () => {
             return;
         }
 
+        const targetsDevelop = pr.base.ref == "develop";
+        const targetsRelease = pr.base.ref.startsWith("release/");
         const wipFeature = githubLabels.some(label => label.name.includes("Part of a WIP Feature"));
-        if (wipFeature) {
+        if (!targetsDevelop && !targetsRelease && wipFeature) {
             return;
         }
     }
