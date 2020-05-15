@@ -15,6 +15,10 @@ export default async () => {
     const subtrees: Subtree[] = [{
         repo: "wordpress-mobile/WordPress-Login-Flow-Android",
         path: "libs/login/"
+    },
+    {
+        repo: "wordpress-mobile/WordPress-Utils-Android",
+        path: "libs/utils/"
     }];
 
     const modifiedFiles = danger.git.modified_files;
@@ -34,21 +38,21 @@ export default async () => {
 
             // Handy accessor for some PR info.
             const pr = danger.github.thisPR;
-            
+
             // The name of the branch that the `subtree push` command will create.
             const mergeBranch = `merge/${pr.repo}/${pr.number}`;
 
             // The merge instructions.
             let markdownText: string;
 
-            // Put it all together! 
+            // Put it all together!
             markdownText = `This PR contains changes in the subtree \`${subtree.path}\`. It is your responsibility to ensure these changes are merged back into \`${subtree.repo}\`.  Follow these handy steps!\n`;
             markdownText += `WARNING: *Make sure your git version is 2.19.x or lower* - there is currently a bug in later versions that will corrupt the subtree history!\n`;
             markdownText += `1. \`cd ${pr.repo}\`\n`;
             markdownText += `2. \`git checkout ${danger.github.pr.head.ref}\`\n`;
             markdownText += `3. \`git subtree push --prefix=${subtree.path} https://github.com/${subtree.repo}.git ${mergeBranch}\`\n`;
             markdownText += `4. Browse to https://github.com/${subtree.repo}/pull/new/${mergeBranch} and open a new PR.`;
-            
+
             message(markdownText);
         }
 
