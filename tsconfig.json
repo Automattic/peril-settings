@@ -3,11 +3,11 @@
         "esModuleInterop": true,
         "lib": [
             "es2017",
-            "dom",
+            "dom"
         ],
-        "target": "es2017",
+        "target": "es2017"
     },
     "exclude": [
-        "node_modules",
+        "node_modules"
     ]
 }
