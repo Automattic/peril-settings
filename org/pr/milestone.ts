@@ -1,7 +1,11 @@
 import {warn, danger} from "danger";
 
 export default async () => {
+    // Create consts for everything we need from `danger` object as soon as possible
+    // so it's not dropped during await operation
     const githubLabels = danger.github.issue.labels;
+    const targetsDevelop = danger.github.pr.base.ref == "develop";
+    const targetsRelease = danger.github.pr.base.ref.startsWith("release/");
     const currentPR = await danger.github.api.pulls.get(danger.github.thisPR);
 
     // Skip for draft PRs
@@ -17,8 +21,6 @@ export default async () => {
         }
 
         // Skip for PRs for wip features unless the PR is against "develop" or "release/x.x" branches
-        const targetsDevelop = danger.github.pr.base.ref == "develop";
-        const targetsRelease = danger.github.pr.base.ref.startsWith("release/");
         const wipFeature = githubLabels.some(label => label.name.includes("Part of a WIP Feature"));
         if (!targetsDevelop && !targetsRelease && wipFeature) {
             return;
