@@ -17,13 +17,6 @@
             ]
         },
         "wordpress-mobile/WordPress-Android": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
-                "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
-                "Automattic/peril-settings@org/pr/diff-size.ts",
-                "Automattic/peril-settings@org/pr/check-subtrees.ts"
-            ],
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
