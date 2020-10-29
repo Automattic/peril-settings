@@ -93,11 +93,9 @@ describe("Podfile should not reference commit hashes checks", () => {
     })
 
     it("fails when finds a commit hash (mobile gutenberg style)", async () => {
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(
-            Promise.resolve(
-                "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'"
-                )    
-            );
+        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
+        podFile += "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
 
         await iosMacos();
         
@@ -105,11 +103,9 @@ describe("Podfile should not reference commit hashes checks", () => {
     })
 
     it("does not fail when finds a version (mobile gutenberg style)", async () => {
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(
-            Promise.resolve(
-                "gutenberg :tag => 'v1.39.0'"
-                )    
-            );
+        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
+        podFile += "gutenberg :tag => 'v1.39.0'\n";
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
 
         await iosMacos();
         
