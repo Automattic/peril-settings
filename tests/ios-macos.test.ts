@@ -8,6 +8,7 @@ import iosMacos from "../org/pr/ios-macos";
 beforeEach(() => {
     dm.warn = jest.fn().mockReturnValue(true);
     dm.message = jest.fn().mockReturnValue(true);
+    dm.fail = jest.fn().mockReturnValue(true);
 
     dm.danger = {
         github: {
@@ -33,7 +34,7 @@ beforeEach(() => {
         },
     };
 
-    dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(""));
+    dm.danger.github.utils.fileContents.mockReturnValue(Promise.resolve(""));
 });
 
 describe("PR milestone checks", () => {
@@ -63,5 +64,55 @@ describe("PR milestone checks", () => {
         
         expect(dm.warn).not.toHaveBeenCalled();
         expect(dm.message).toHaveBeenCalledWith("This PR has the 'Releases' label: some checks will be skipped.");
+    })
+})
+
+describe("Podfile should not reference commit hashes checks", () => {
+    it("fails when finds a commit hash", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                "pod 'MyTestPod', :git => 'https://github.com/my_test_pod/MyTestPod.git', :commit => '82f65c9cac2b59940db219a2327e12a0adfea4e3'"
+                )    
+            );
+
+        await iosMacos();
+        
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
+    })
+
+    it("does not fail when finds a version", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                "pod 'MyTestPod', '~> 1.1.0'"
+                )    
+            );
+
+        await iosMacos();
+        
+        expect(dm.fail).not.toHaveBeenCalled();
+    })
+
+    it("fails when finds a commit hash (mobile gutenberg style)", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'"
+                )    
+            );
+
+        await iosMacos();
+        
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
+    })
+
+    it("does not fail when finds a version (mobile gutenberg style)", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                "gutenberg :tag => 'v1.39.0'"
+                )    
+            );
+
+        await iosMacos();
+        
+        expect(dm.fail).not.toHaveBeenCalled();
     })
 })
