@@ -10,7 +10,7 @@ export default async () => {
         "RELEASE-NOTES.txt"
     ];
 
-    // Skip if not on a release branch 
+    // Skip if not targeting a release branch 
     if (!pr.base.ref.startsWith("release/")) {
         return;
     }
