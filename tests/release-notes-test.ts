@@ -31,7 +31,7 @@ describe("release notes checks", () => {
     it("warns when RELEASE-NOTES.txt is changed in a PR which targets a release branch", async () => {
         await checkReleaseNotes();
         
-        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes to RELEASE_NOTES.txt.\n"));
+        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes to \`RELEASE_NOTES.txt\`.\n"));
     })
 
     it("does not warn when RELEASE-NOTES.txt is changed in a PR which targets a release branch if the PR is labeled with Releases", async () => {
