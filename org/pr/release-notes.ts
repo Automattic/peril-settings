@@ -27,7 +27,7 @@ export default async () => {
         if (modifiedFiles.some(f => f.includes(releaseNotes))) {
             let messageText: string;
 
-            messageText = "This PR contains changes to RELEASE_NOTES.txt.\n";
+            messageText = "This PR contains changes to \`RELEASE_NOTES.txt\`.\n";
             messageText += "Note that these changes won't affect the final version of the release notes as this version is in code freeze.\n";
             messageText += "Please, get in touch with a release manager if you want to update the final release notes.";
 
