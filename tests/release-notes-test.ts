@@ -66,3 +66,4 @@ describe("release notes checks", () => {
         expect(dm.warn).not.toHaveBeenCalled();
     })
 })
+
