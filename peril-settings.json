@@ -38,6 +38,11 @@
                 "Automattic/peril-settings@org/pr/optional-tests.ts"
             ]
         },
+        "wordpress-mobile/WordPress-Utils-Android": {
+            "pull_request": [
+                "Automattic/peril-settings@org/pr/android-library.ts"
+            ]
+        },
         "wordpress-mobile/gutenberg-mobile": {
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts",
