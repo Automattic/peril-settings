@@ -78,7 +78,8 @@
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/label.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts",
-                "Automattic/peril-settings@org/pr/diff-size.ts"
+                "Automattic/peril-settings@org/pr/diff-size.ts",
+                "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts"
@@ -87,13 +88,15 @@
         "Automattic/simplenote-macos": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts"
+                "Automattic/peril-settings@org/pr/label.ts",
+                "Automattic/peril-settings@org/pr/release-notes.ts"
             ]
         },
         "Automattic/simplenote-android": {
             "pull_request, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/label.ts"
+                "Automattic/peril-settings@org/pr/label.ts",
+                "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts"
