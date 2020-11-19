@@ -3,6 +3,7 @@
 // This file should typically not be modified after code freeze (i.e. on the release branch).
 
 import {warn, danger} from "danger";
+import { Stream } from "stream";
 
 export default async () => {
     const githubLabels = danger.github.issue.labels;
@@ -14,8 +15,13 @@ export default async () => {
         "RELEASE-NOTES.txt"
     ];
 
-    // Skip if not targeting a release branch 
-    if (!pr.base.ref.startsWith("release/")) {
+    const checkedBranches: string[] = [
+        "release/",
+        "hotfix/"
+    ];
+
+    // Skip if not targeting a release branch
+    if (checkedBranches.filter((branch) => pr.base.ref.startsWith(branch)).length == 0) {
         return;
     }
 

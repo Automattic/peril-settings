@@ -34,7 +34,29 @@ describe("release notes checks", () => {
         expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes to \`RELEASE_NOTES.txt\`.\n"));
     })
 
+    it("warns when RELEASE-NOTES.txt is changed in a PR which targets a hotfix branch", async () => {
+        dm.danger.github.pr.base.ref = "hotfix/1.0.1";
+
+        await checkReleaseNotes();
+        
+        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes to \`RELEASE_NOTES.txt\`.\n"));
+    })
+
     it("does not warn when RELEASE-NOTES.txt is changed in a PR which targets a release branch if the PR is labeled with Releases", async () => {
+        dm.danger.github.issue.labels = [
+            {
+                name: 'Releases'
+            }
+        ]
+
+        await checkReleaseNotes();
+        
+        expect(dm.warn).not.toHaveBeenCalled();
+    })
+
+    it("does not warn when RELEASE-NOTES.txt is changed in a PR which targets a hotfix branch if the PR is labeled with Releases", async () => {
+        dm.danger.github.pr.base.ref = "hotfix/1.0.1";
+        
         dm.danger.github.issue.labels = [
             {
                 name: 'Releases'
