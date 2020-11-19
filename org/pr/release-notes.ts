@@ -1,3 +1,7 @@
+// This Peril rule will warn if the `RELEASE-NOTES.txt` file has been changed in a PR targeting a `release/*` branch.
+//
+// This file should typically not be modified after code freeze (i.e. on the release branch).
+
 import {warn, danger} from "danger";
 
 export default async () => {
