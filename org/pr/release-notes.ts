@@ -21,14 +21,13 @@ export default async () => {
     ];
 
     // Skip if not targeting a release branch
-    if (checkedBranches.filter((branch) => pr.base.ref.startsWith(branch)).length == 0) {
+    if (!checkedBranches.some(branch => pr.base.ref.startsWith(branch))) {
         return;
     }
 
     // Skip for PR labeled as "Releases"
     if (githubLabels.length != 0) {
-        const releases = githubLabels.some(label => label.name.includes("Releases"));
-        if (releases) {
+        if (githubLabels.some(label => label.name.includes("Releases"))) {
             return;
         }
     }
