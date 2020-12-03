@@ -38,14 +38,4 @@ describe("subtree checks", () => {
         // Then, ensure a piece of mock data is present.
         expect(dm.message).toHaveBeenCalledWith(expect.stringContaining(dm.danger.github.thisPR.repo));
     })
-
-    it("adds merge instructions when PR contains changes in libs/utils/", async () => {
-        await checkSubtrees();
-
-        // First, check that the merge instructions appear correct.
-        expect(dm.message).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes in the subtree `libs/utils/`. It is your responsibility to ensure these changes are merged back into `wordpress-mobile/WordPress-Utils-Android`."));
-
-        // Then, ensure a piece of mock data is present.
-        expect(dm.message).toHaveBeenCalledWith(expect.stringContaining(dm.danger.github.thisPR.repo));
-    })
 })
