@@ -55,6 +55,12 @@ const expectComment = (webhook, commentBody) => {
   expect(console.log).toBeCalledWith('Optional tests comment posted to https://github.com/comment_url')
 }
 
+const testHoldContexts: string[] = [
+    "ci/circleci: Optional Tests/Hold",
+    "ci/circleci: wordpress_ios/Optional Tests",
+    "ci/circleci: fluxc/Optional Tests"
+]
+
 describe("optional test handling", () => {
     it("bails when its not a status/state we want to handle", async () => {
         await optionalTests({ state: "fail", context: "Failure context" } as any)
@@ -64,29 +70,31 @@ describe("optional test handling", () => {
         expect(console.log).toBeCalledWith("Not a status we want to process for optional tests - got 'ci/circleci: Optional Tests/Hold' (success)")
     })
 
-    it("updates the status to be 'success' when it is the right context, and comments", async () => {
-        const webhook: any = {
-            state: "pending",
-            context: "ci/circleci: Optional Tests/Hold",
-            description: "Holding build",
-            target_url: "https://circleci.com/workflow-run/abcdefg",
-            repository: {
-                name: 'Repo',
-                owner: { login: 'Owner' }
-            },
-            commit: { sha: 'abc' }
-        }
-        await optionalTests(webhook)
+    testHoldContexts.forEach((testHoldContext) => {
+        it("updates the status to be 'success' when it is the right context, and comments", async () => {
+            const webhook: any = {
+                state: "pending",
+                context: testHoldContext,
+                description: "Holding build",
+                target_url: "https://circleci.com/workflow-run/abcdefg",
+                repository: {
+                    name: 'Repo',
+                    owner: { login: 'Owner' }
+                },
+                commit: { sha: 'abc' }
+            }
+            await optionalTests(webhook)
 
-        expect(dm.danger.github.api.repos.createStatus).toBeCalledWith({
-            owner: webhook.repository.owner.login,
-            repo: webhook.repository.name,
-            state: "success",
-            context: webhook.context,
-            description: webhook.description,
-            target_url: webhook.target_url,
+            expect(dm.danger.github.api.repos.createStatus).toBeCalledWith({
+                owner: webhook.repository.owner.login,
+                repo: webhook.repository.name,
+                state: "success",
+                context: webhook.context,
+                description: webhook.description,
+                target_url: webhook.target_url,
+            })
+
+            expectComment(webhook, `You can trigger optional UI/connected tests for these changes by visiting CircleCI [here](${webhook.target_url}).`)
         })
-
-        expectComment(webhook, `You can trigger optional UI/connected tests for these changes by visiting CircleCI [here](${webhook.target_url}).`)
     })
 })
