@@ -40,6 +40,11 @@
                 "Automattic/peril-settings@org/pr/optional-tests.ts"
             ]
         },
+        "wordpress-mobile/WordPress-FluxC-Android": {
+            "status": [
+                "Automattic/peril-settings@org/pr/optional-tests.ts"
+            ]
+        },
         "wordpress-mobile/WordPress-Utils-Android": {
             "pull_request": [
                 "Automattic/peril-settings@org/pr/android-library.ts"
