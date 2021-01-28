@@ -9,7 +9,8 @@ async function checkTracksManagementFiles() {
     // This can be defined in the repo in the future. 
     const tracksFiles: string[] = [
         "AnalyticsTracker.kt",
-        "LoginAnalyticsTracker.kt"
+        "LoginAnalyticsTracker.kt",
+        "WooAnalyticsStat.swift"
     ];
 
     const modifiedFiles = danger.git.modified_files;
