@@ -92,4 +92,55 @@ describe("string checks", () => {
         expect(dm.warn).not.toHaveBeenCalledWith();
     })
 
+    it("Warn when there are changes in metadata/release-notes.txt but not in metadata/PlayStoreStrings.po", async () => {
+        // Create mocks
+        dm.danger = {
+            github: { pr: { base: { ref: "a-branch" } } },
+            git: {
+                modified_files: ["metadata/release_notes.txt"],
+                diffForFile: async () => { return { before: 'initial release notes', after: 'final release notes' } }
+            }
+        };
+        
+        // Run the checks
+        await androidChecks();
+        
+        // Check that the instructions appear correct.
+        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("The PlayStoreStrings.po file must be updated any time changes are made to release notes"));
+    })
+
+    it("Don't warn when there are changes in metadata/release-notes.txt and in metadata/PlayStoreStrings.po", async () => {
+        // Create mocks
+        dm.danger = {
+            github: { pr: { base: { ref: "a-branch" } } },
+            git: {
+                modified_files: ["metadata/release_notes.txt", "metadata/PlayStoreStrings.po"],
+                diffForFile: async () => { return { before: 'initial release notes', after: 'final release notes' } }
+            }
+        };
+        
+        // Run the checks
+        await androidChecks();
+        
+        // Check that the instructions appear correct.
+        expect(dm.warn).not.toHaveBeenCalledWith();
+    })
+
+    it("Don't warn when there are changes in /release-notes.txt", async () => {
+        // Create mocks
+        dm.danger = {
+            github: { pr: { base: { ref: "a-branch" } } },
+            git: {
+                modified_files: ["release_notes.txt"],
+                diffForFile: async () => { return { before: 'initial release notes', after: 'final release notes' } }
+            }
+        };
+        
+        // Run the checks
+        await androidChecks();
+        
+        // Check that the instructions appear correct.
+        expect(dm.warn).not.toHaveBeenCalledWith();
+    })
+
 })
