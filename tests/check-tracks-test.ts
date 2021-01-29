@@ -39,7 +39,7 @@ beforeEach(() => {
     };
 });
 
-describe("tracks checks", () => {
+describe("tracks checks Android", () => {
     it("adds instructions when PR contains changes in AnalyticsTracker.kt", async () => {
         await checkTracks();
         
@@ -50,6 +50,19 @@ describe("tracks checks", () => {
     it("adds instructions when PR contains changes in LoginAnalyticsTracker.kt", async () => {
         // Update mocks
         dm.danger.git.modified_files = ["LoginAnalyticsTracker.kt"];
+        
+        await checkTracks();
+        
+        // Check that the instructions appear correct.
+        expect(dm.message).toHaveBeenCalledWith(expect.stringContaining("This PR contains changes to Tracks-related logic. Please ensure the following are completed"));
+    })
+
+})
+
+describe("tracks checks iOS", () => {
+    it("adds instructions when PR contains changes in WooAnalyticsStat.swift", async () => {
+        // Update mocks
+        dm.danger.git.modified_files = ["WooAnalyticsStat.swift"];
         
         await checkTracks();
         
