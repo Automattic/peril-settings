@@ -21,7 +21,7 @@ beforeEach(() => {
 });
 
 describe("string checks", () => {
-    it("Warn when an entry which references another string resources is added without the translatable=false attribute", async () => {
+    it("warns when an entry which references another string resources is added without the translatable=false attribute", async () => {
         // Create mocks
         const mockDiffFromFile = await getMockedDiff("+++ <string name=\"login_prologue_screen_title\">@string/app_name</string>");
         dm.danger = {
@@ -39,7 +39,7 @@ describe("string checks", () => {
         expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."));
     })
 
-    it("Don't warn when an entry which references another string resources is added with the translatable=false attribute", async () => {
+    it("doesn't warn when an entry which references another string resources is added with the translatable=false attribute", async () => {
         // Create mocks
         const mockDiffFromFile = await getMockedDiff("+++ <string name=\"login_prologue_screen_title\" translatable=\"false\">@string/app_name</string>");
         dm.danger = {
@@ -57,7 +57,7 @@ describe("string checks", () => {
         expect(dm.warn).not.toHaveBeenCalledWith();
     })
 
-    it("Don't warn when strings resources are added to strings.xml", async () => {
+    it("doesn't warn when strings resources are added to strings.xml", async () => {
         // Create mocks
         const mockDiffFromFile = await getMockedDiff("+++ <string name=\"login_prologue_screen_title\">A test string</string>");
         dm.danger = {
@@ -75,7 +75,7 @@ describe("string checks", () => {
         expect(dm.warn).not.toHaveBeenCalledWith();
     })
 
-    it("Don't warn when there are no changes in strings.xml", async () => {
+    it("doesn't warn when there are no changes in strings.xml", async () => {
         // Create mocks
         dm.danger = {
             github: { pr: { base: { ref: "a-branch" } } },
@@ -92,7 +92,7 @@ describe("string checks", () => {
         expect(dm.warn).not.toHaveBeenCalledWith();
     })
 
-    it("Warn when there are changes in metadata/release-notes.txt but not in metadata/PlayStoreStrings.po", async () => {
+    it("warns when there are changes in metadata/release-notes.txt but not in metadata/PlayStoreStrings.po", async () => {
         // Create mocks
         dm.danger = {
             github: { pr: { base: { ref: "a-branch" } } },
@@ -109,7 +109,7 @@ describe("string checks", () => {
         expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("The PlayStoreStrings.po file must be updated any time changes are made to release notes"));
     })
 
-    it("Don't warn when there are changes in metadata/release-notes.txt and in metadata/PlayStoreStrings.po", async () => {
+    it("doesn't warn when there are changes in metadata/release-notes.txt and in metadata/PlayStoreStrings.po", async () => {
         // Create mocks
         dm.danger = {
             github: { pr: { base: { ref: "a-branch" } } },
@@ -126,7 +126,7 @@ describe("string checks", () => {
         expect(dm.warn).not.toHaveBeenCalledWith();
     })
 
-    it("Don't warn when there are changes in /release-notes.txt", async () => {
+    it("doesn't warn when there are changes in /release-notes.txt", async () => {
         // Create mocks
         dm.danger = {
             github: { pr: { base: { ref: "a-branch" } } },
