@@ -81,7 +81,7 @@ describe("string checks", () => {
             github: { pr: { base: { ref: "a-branch" } } },
             git: {
                 modified_files: ["a-file.kt"],
-                diffForFile: async () => { return { added: '' } }
+                diffForFile: async () => { return { added: 'getString(R.string.example)' } }
             }
         };
         
