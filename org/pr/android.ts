@@ -22,8 +22,8 @@ export default async () => {
                 let markdownText: string;
 
                 markdownText = "This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."
-                markdownText += "Please make sure to set the \`translatable=false\` attribute here:"
-                markdownText += "\`` + stringDiff + `\`"
+                markdownText += "Please make sure to set the \`translatable=\"false\"\` attribute here:"
+                markdownText += `\`${stringDiff}\``
 
                 warn(markdownText);
             }

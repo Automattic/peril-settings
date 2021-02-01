@@ -36,7 +36,11 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."));
+        let expectedText: string;
+        expectedText = "This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."
+        expectedText += "Please make sure to set the \`translatable=\"false\"\` attribute here:"
+        expectedText += "\`+++ <string name=\"login_prologue_screen_title\">@string/app_name</string>\`"
+        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining(expectedText));
     })
 
     it("doesn't warn when an entry which references another string resources is added with the translatable=false attribute", async () => {
