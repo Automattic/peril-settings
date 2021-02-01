@@ -18,7 +18,7 @@ export default async () => {
         const stringDiffs = await danger.git.diffForFile(file)
 
         for (let stringDiff of stringDiffs.added.replace(/\r/g, "").split(/\n/)) {
-            if (stringDiff.includes("@string/") && (!stringDiff.includes("translatable=false"))) {
+            if (stringDiff.includes("@string/") && (!stringDiff.includes("translatable=\"false\""))) {
                 let markdownText: string;
 
                 markdownText = "This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."
