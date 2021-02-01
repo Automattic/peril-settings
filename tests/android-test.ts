@@ -58,7 +58,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when strings resources are added to strings.xml", async () => {
@@ -76,7 +76,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when there are no changes in strings.xml", async () => {
@@ -93,7 +93,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("warns when there are changes in metadata/release-notes.txt but not in metadata/PlayStoreStrings.po", async () => {
@@ -127,7 +127,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when there are changes in /release-notes.txt", async () => {
@@ -144,7 +144,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
 })
