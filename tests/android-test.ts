@@ -36,7 +36,11 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."));
+        let expectedText: string;
+        expectedText = "This PR adds a translatable entry to \`strings.xml\` which references another string resource: this usually causes issues with translations."
+        expectedText += "Please make sure to set the \`translatable=\"false\"\` attribute here:"
+        expectedText += "\`+++ <string name=\"login_prologue_screen_title\">@string/app_name</string>\`"
+        expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining(expectedText));
     })
 
     it("doesn't warn when an entry which references another string resources is added with the translatable=false attribute", async () => {
@@ -54,7 +58,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when strings resources are added to strings.xml", async () => {
@@ -72,7 +76,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when there are no changes in strings.xml", async () => {
@@ -89,7 +93,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the no message is shown.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("warns when there are changes in metadata/release-notes.txt but not in metadata/PlayStoreStrings.po", async () => {
@@ -123,7 +127,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
     it("doesn't warn when there are changes in /release-notes.txt", async () => {
@@ -140,7 +144,7 @@ describe("string checks", () => {
         await androidChecks();
         
         // Check that the instructions appear correct.
-        expect(dm.warn).not.toHaveBeenCalledWith();
+        expect(dm.warn).not.toHaveBeenCalled();
     })
 
 })
