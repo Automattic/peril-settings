@@ -117,4 +117,32 @@ describe("PR milestone checks", () => {
 
         expect(dm.warn).not.toHaveBeenCalled();
     })
+
+    for(let i = 0; i <= 4; i++) {
+        it("does warn when the milestone is present and closing in 4 days or less", async () => {
+            var closeDate = new Date();
+            closeDate.setDate(closeDate.getDate() + i);
+
+            const mockData = { data: { draft: false, milestone: { number: 1, due_on: closeDate.toISOString() } } };
+            dm.danger.github.api.pulls.get.mockReturnValueOnce(Promise.resolve(mockData));
+
+            await milestone();
+
+            expect(dm.warn).toHaveBeenCalledWith(expect.stringContaining("This PR is assigned to a milestone which is closing in less than 4 days"));
+        })
+    }
+
+    for(let i = 5; i <= 14; i++) {
+        it("does not warn when the milestone is present and closing in 5 days or more", async () => {
+            var closeDate = new Date();
+            closeDate.setDate(closeDate.getDate() + i);
+            
+            const mockData = { data: { draft: false, milestone: { number: 1, due_on: closeDate.toISOString() } } };
+            dm.danger.github.api.pulls.get.mockReturnValueOnce(Promise.resolve(mockData));
+
+            await milestone();
+
+            expect(dm.warn).not.toHaveBeenCalled();
+        })
+    }
 })

@@ -30,5 +30,24 @@ export default async () => {
     // Warn if the PR doesn't have a milestone
     if (currentPR.data.milestone == null) {
         warn("PR is not assigned to a milestone.");
+        return;
+    }
+
+    // Warn if the milestone is closing in less than 4 days
+    const warningDays = 4;
+    const warningThreshold = warningDays * 1000 * 3600 * 24; // Convert days to milliseconds
+    if (currentPR.data.milestone.due_on != null) {
+        const today = new Date();
+        let dueDate : Date;
+        dueDate = new Date();
+        dueDate.setTime(Date.parse(currentPR.data.milestone.due_on));
+        
+        if ((dueDate.getTime() - today.getTime()) <= warningThreshold) {
+            let messageText : string;
+
+            messageText = `This PR is assigned to a milestone which is closing in less than ${warningDays} days\n`;
+            messageText += `Please, make sure to get it merged by then or assign it to a later expiring milestone`;
+            warn(messageText)
+        }
     }
 };
