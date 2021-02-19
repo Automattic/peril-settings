@@ -36,7 +36,7 @@ export default async () => {
     // Warn if the milestone is closing in less than 4 days
     const warningDays = 4;
     const warningThreshold = warningDays * 1000 * 3600 * 24; // Convert days to milliseconds
-    if (currentPR.data.milestone.due_on != null) {
+    if ((currentPR.data.state != "closed") && (currentPR.data.milestone.due_on != null)) {
         const today = new Date();
         let dueDate : Date;
         dueDate = new Date();
