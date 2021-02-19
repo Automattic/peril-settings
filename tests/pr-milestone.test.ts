@@ -145,4 +145,16 @@ describe("PR milestone checks", () => {
             expect(dm.warn).not.toHaveBeenCalled();
         })
     }
+
+    it("does not warn when the milestone is closing in 4 days or less, but PR is merged", async () => {
+        var closeDate = new Date();
+        closeDate.setDate(closeDate.getDate() + 2);
+
+        const mockData = { data: { draft: false, milestone: { number: 1, due_on: closeDate.toISOString() }, state: "closed" } };
+        dm.danger.github.api.pulls.get.mockReturnValueOnce(Promise.resolve(mockData));
+
+        await milestone();
+
+        expect(dm.warn).not.toHaveBeenCalled();
+    })
 })
