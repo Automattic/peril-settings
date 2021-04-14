@@ -7,6 +7,8 @@ const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 // This is a list of the CircleCI statuses to process
 const HOLD_CONTEXTS: string[] = [
     "ci/circleci: Optional Tests/Hold",
+    "ci/circleci: Installable Build/Approve Jetpack",
+    "ci/circleci: Installable Build/Approve WordPress",
     "ci/circleci: wordpress_ios/Optional Tests",
     "ci/circleci: fluxc/Optional Tests"
 ]
