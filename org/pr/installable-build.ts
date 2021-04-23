@@ -8,7 +8,7 @@ const CIRCLECI_TOKEN: string = process.env['CIRCLECI_TOKEN']
 const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 
 // This is a list of the CircleCI statuses to process
-const HOLD_CONTEXTS: string[] = ["ci/circleci: Installable Build/Hold", "ci/circleci: Installable Build/Approve Jetpack", "ci/circleci: Installable Build/Approve WordPress"]
+const HOLD_CONTEXTS: string[] = ["ci/circleci: Installable Build/Hold", "ci/circleci: Installable Build/Approve WordPress"]
 const INSTALLABLE_BUILD_CONTEXTS: string[] = ["ci/circleci: Installable Build", "ci/circleci: Test Android on Device"]
 
 async function markStatusAsSuccess(status) {
