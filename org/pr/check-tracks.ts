@@ -68,7 +68,7 @@ export default async () => {
         // Put it all together! 
         messageText = `This PR contains changes to Tracks-related logic. Please ensure the following are completed:\n`;
         messageText += `**PR Author**\n`;
-        messageText += `- The PR must be assigned the **Tracks** label\n`;
+        messageText += `- The PR must be assigned the label **Tracks** or **category: analytics**, depending on which label is avail in the repo you are using.\n`;
         messageText += `**PR Reviewer**\n`;
         messageText += `- The tracks events must be validated in the Tracks system.\n`;
         messageText += `- Verify the internal tracks spreadsheet has also been updated.`;
