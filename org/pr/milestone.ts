@@ -22,7 +22,8 @@ export default async () => {
 
         // Skip for PRs for wip features unless the PR is against "develop" or "release/x.x" branches
         const wipFeature = githubLabels.some(label => label.name.includes("Part of a WIP Feature"));
-        if (!targetsDevelop && !targetsRelease && wipFeature) {
+        const donotmergeFeature = githubLabels.some(label => label.name.includes("status: do not merge"));
+        if (!targetsDevelop && !targetsRelease && (wipFeature || donotmergeFeature)) {
             return;
         }
     }
