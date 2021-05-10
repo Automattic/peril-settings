@@ -4,13 +4,13 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.14",
-    "@types/node": "^12.7.2",
-    "danger": "^8.0.0",
-    "jest": "^24.8.0",
-    "jest-junit": "^6.4.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.2"
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.2",
+    "danger": "^10.0.0",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.2.4"
   },
   "jest": {
     "verbose": true,
