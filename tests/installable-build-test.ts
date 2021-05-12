@@ -105,7 +105,7 @@ describe("installable build handling", () => {
         expectComment(webhook, `You can trigger an installable build for these changes by visiting CircleCI [here](${webhook.target_url}).`)
     })
 
-    it("Posts a download comment with the content of comment.json", async () => {
+    it("Posts a download comment with the content of comment.json when the standard context is used", async () => {
       mockedArtifacts = [{
         path: 'comment.json',
         url: 'https://circleci.com/comment.json'
@@ -117,6 +117,31 @@ describe("installable build handling", () => {
       const webhook: any = {
         state: "success",
         context: "ci/circleci: Installable Build",
+        description: "Building",
+        target_url: "https://circleci.com/gh/Owner/Repo/12345?some=query",
+        repository: {
+            name: 'Repo',
+            owner: { login: 'Owner' }
+        },
+        commit: { sha: 'abc' }
+      }
+      await installableBuild(webhook)
+
+      expectComment(webhook, "Mocked download comment.")
+    })
+
+    it("Posts a download comment with the content of comment.json when a custom context containing the app name is used", async () => {
+      mockedArtifacts = [{
+        path: 'comment.json',
+        url: 'https://circleci.com/comment.json'
+      }]
+      mockedCommentJson = {
+        body: 'Mocked download comment.'
+      }
+
+      const webhook: any = {
+        state: "success",
+        context: "ci/circleci: WordPress Installable Build",
         description: "Building",
         target_url: "https://circleci.com/gh/Owner/Repo/12345?some=query",
         repository: {

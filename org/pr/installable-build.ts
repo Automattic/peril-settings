@@ -9,7 +9,9 @@ const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 
 // This is a list of the CircleCI statuses to process
 const HOLD_CONTEXTS: string[] = ["ci/circleci: Installable Build/Hold", "ci/circleci: Installable Build/Approve WordPress"]
-const INSTALLABLE_BUILD_CONTEXTS: string[] = ["ci/circleci: Installable Build", "ci/circleci: Test Android on Device"]
+// The following statuses are described with regex in order to be able to handle special cases where the app name is added to the state, 
+// e.g. "ci/circleci: Jetpack Installable Build"
+const INSTALLABLE_BUILD_CONTEXTS: string[] = ["ci\/circleci:.*Installable Build$", "ci\/circleci:.*Test Android on Device$"] 
 
 async function markStatusAsSuccess(status) {
   console.log(`Updating ${status.context} state to be success`)
@@ -134,7 +136,7 @@ export default async (status: Status) => {
     if (status.state == "pending" && HOLD_CONTEXTS.includes(status.context)) {
       await markStatusAsSuccess(status)
       await createOrUpdateComment(status, `You can trigger an installable build for these changes by visiting CircleCI [here](${status.target_url}).`)
-    } else if (status.state ==  "success" && INSTALLABLE_BUILD_CONTEXTS.includes(status.context)) {
+    } else if (status.state ==  "success" && INSTALLABLE_BUILD_CONTEXTS.filter(s => status.context.match(s)).length > 0) {
       const commentBody = await getDownloadCommentText(status)
       if (commentBody === undefined) {
         return console.log(`Could not find a comment.json or .apk file for the installable build.`)
