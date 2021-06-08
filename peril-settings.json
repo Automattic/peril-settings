@@ -29,7 +29,6 @@
                 "Automattic/peril-settings@org/pr/label.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts",
-                "Automattic/peril-settings@org/pr/check-subtrees.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "issues.opened, issues.labeled, issues.unlabeled": [
@@ -71,7 +70,6 @@
                 "Automattic/peril-settings@org/pr/label.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts",
                 "Automattic/peril-settings@org/pr/diff-size.ts",
-                "Automattic/peril-settings@org/pr/check-subtrees.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
