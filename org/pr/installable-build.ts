@@ -127,7 +127,7 @@ async function getDownloadCommentText(status) {
   if (apkArtifacts.length == 1) {
     return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifacts[0].url}).`
   } else if (apkArtifacts.length > 1) {
-    const links = apkArtifacts.map(artifact => `- [${artifact.path}](${artifact.url})`).join(`\n`)
+    const links = apkArtifacts.map(artifact => `- [${artifact.path.split("/").pop()}](${artifact.url})`).join(`\n`)
     return `You can test the changes on this Pull Request by downloading the APKs:\n${links}.`
   }
   return undefined

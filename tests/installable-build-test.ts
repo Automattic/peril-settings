@@ -154,8 +154,8 @@ describe("installable build handling", () => {
 
     it("Posts a download comment linking to multiple APKs", async () => {
       mockedArtifacts = [{
-        path: 'file1.apk',
-        url: 'https://circleci.com/file1.apk'
+        path: 'Artifacts/file1.apk',
+        url: 'https://circleci.com/artifacts/file1.apk'
       },{
         path: 'file2.apk',
         url: 'https://circleci.com/file2.apk'
