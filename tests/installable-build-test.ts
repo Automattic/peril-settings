@@ -151,4 +151,29 @@ describe("installable build handling", () => {
 
       expectComment(webhook, `You can test the changes on this Pull Request by downloading the APK [here](${mockedArtifacts[0].url}).`)
     })
+
+    it("Posts a download comment linking to multiple APKs", async () => {
+      mockedArtifacts = [{
+        path: 'file1.apk',
+        url: 'https://circleci.com/file1.apk'
+      },{
+        path: 'file2.apk',
+        url: 'https://circleci.com/file2.apk'
+      }]
+
+      const webhook: any = {
+        state: "success",
+        context: "ci/circleci: Installable Build",
+        description: "Building",
+        target_url: "https://circleci.com/gh/Owner/Repo/12345?some=query",
+        repository: {
+            name: 'Repo',
+            owner: { login: 'Owner' }
+        },
+        commit: { sha: 'abc' }
+      }
+      await installableBuild(webhook)
+
+      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n- [file1.apk](${mockedArtifacts[0].url})\n- [file2.apk](${mockedArtifacts[1].url}).`)
+    })
 })
