@@ -108,7 +108,7 @@ async function circleCIArtifacts(status) {
 }
 
 async function getDownloadCommentText(status) {
-  const artifacts = await circleCIArtifacts(status)
+  const artifacts: Array<any> = await circleCIArtifacts(status)
 
   const commentJsonArtifact = artifacts.find(artifact => artifact.path.endsWith("comment.json"))
   if (commentJsonArtifact) {
@@ -125,9 +125,12 @@ async function getDownloadCommentText(status) {
     }
   }
 
-  const apkArtifact = artifacts.find(artifact => artifact.path.endsWith(".apk"))
-  if (apkArtifact) {
-    return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifact.url}).`
+  const apkArtifacts: Array<any> = artifacts.filter(artifact => artifact.path.endsWith(".apk"))
+  if (apkArtifacts.length == 1) {
+    return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifacts[0].url}).`
+  } else if (apkArtifacts.length > 1) {
+    const links = apkArtifacts.map(artifact => ` - [${artifact.path.split("/").pop()}](${artifact.url})`).join(`\n`)
+    return `You can test the changes on this Pull Request by downloading the APKs:\n${links}`
   }
   return undefined
 }
