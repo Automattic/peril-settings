@@ -86,7 +86,8 @@
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
-                "Automattic/peril-settings@org/pr/installable-build.ts"
+                "Automattic/peril-settings@org/pr/installable-build.ts",
+                "Automattic/peril-settings@org/pr/optional-tests.ts"
             ]
         },
         "Automattic/simplenote-macos": {

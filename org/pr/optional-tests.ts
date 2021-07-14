@@ -10,7 +10,8 @@ const HOLD_CONTEXTS: string[] = [
     "ci/circleci: Installable Build/Approve Jetpack",
     "ci/circleci: Installable Build/Approve WordPress",
     "ci/circleci: wordpress_ios/Optional Tests",
-    "ci/circleci: fluxc/Optional Tests"
+    "ci/circleci: fluxc/Optional Tests",
+    "ci/circleci: simplenote_ios/Optional Full UI Test"
 ]
 
 async function markStatusAsSuccess(status) {
