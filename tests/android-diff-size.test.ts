@@ -22,22 +22,22 @@ beforeEach(() => {
 });
 
 describe("PR diff size checks", () => {
-    it("does not warn with less than 500 lins", async () => {
+    it("does not warn with less than 300 lins", async () => {
         await diffSize();
         
         expect(dm.warn).not.toHaveBeenCalled();
     })
 
-    it("warns with more than 500 lines", async () => {
-        dm.danger.github.pr.deletions = 301;
+    it("warns with more than 300 lines", async () => {
+        dm.danger.github.pr.deletions = 101;
 
         await diffSize();
         
-        expect(dm.warn).toHaveBeenCalledWith("PR has more than 500 lines of code changing. Consider splitting into smaller PRs if possible.");
+        expect(dm.warn).toHaveBeenCalledWith("PR has more than 300 lines of code changing. Consider splitting into smaller PRs if possible.");
     })
 
-    it("does not warns with more than 500 lines and releases label", async () => {
-        dm.danger.github.pr.deletions = 301;
+    it("does not warns with more than 300 lines and releases label", async () => {
+        dm.danger.github.pr.deletions = 101;
 
         dm.danger.github.issue.labels = [
             {
