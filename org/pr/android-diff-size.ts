@@ -25,6 +25,6 @@ export default async () => {
     // Warn when there is a big PR
     let codeChanges = danger.github.pr.additions + danger.github.pr.deletions - changesToTests;
     if (codeChanges > 300) {
-        warn(`PR has more than 300 lines of code changing. Consider splitting into smaller PRs if possible. ([${codeChanges} lines of code changes])`);
+        warn("PR has more than 300 lines of code changing. Consider splitting into smaller PRs if possible.");
     }
 };
