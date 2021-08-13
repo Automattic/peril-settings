@@ -132,4 +132,50 @@ describe("PR diff size checks", () => {
         
         expect(dm.warn).not.toHaveBeenCalled();
     })
+
+    it("does not warns with more than 300 lines, but some belong to added test files", async () => {
+        dm.danger.github.pr.additions = 291;
+
+        dm.danger.git.created_files = ["MyProject/src/test/something/myTestFile.ko", "MyProject/src/test/something/myOtherTestFile.ko"];
+        dm.danger.git.diffForFile = jest.fn();
+
+        const mockData1 = { 
+            added: "+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
+            removed: ""
+        };
+        const mockData2 = { 
+            added: "+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
+            removed: "" 
+        };
+        dm.danger.git.diffForFile
+            .mockReturnValueOnce(Promise.resolve(mockData1))
+            .mockReturnValueOnce(Promise.resolve(mockData2));
+
+        await diffSize();
+        
+        expect(dm.warn).not.toHaveBeenCalled();
+    })
+
+    it("does not warns with more than 300 lines, but some belong to removed test files", async () => {
+        dm.danger.github.pr.additions = 291;
+
+        dm.danger.git.deleted_files = ["MyProject/src/test/something/myTestFile.ko", "MyProject/src/test/something/myOtherTestFile.ko"];
+        dm.danger.git.diffForFile = jest.fn();
+
+        const mockData1 = { 
+            added: "",
+            removed: "- func someNewCode();\r\n- let someOtherNewVar = 0;"
+        };
+        const mockData2 = { 
+            added: "",
+            removed: "- func someNewCode();\r\n- let someOtherNewVar = 0;" 
+        };
+        dm.danger.git.diffForFile
+            .mockReturnValueOnce(Promise.resolve(mockData1))
+            .mockReturnValueOnce(Promise.resolve(mockData2));
+
+        await diffSize();
+        
+        expect(dm.warn).not.toHaveBeenCalled();
+    })
 })
