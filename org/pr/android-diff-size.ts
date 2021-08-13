@@ -15,6 +15,8 @@ export default async () => {
     }
     
     // Calculate the changes to Test files because we don't want to limit those
+    // Note that linesOfCode() function in the latest GitDSL can solve this problem in a more elegant way,
+    // but the version of Danger currently used by Peril doesn't have it yet.
     const testFiles = [...modifiedFiles, ...createdFiles, ...deletedFiles].filter((path: string) => path.includes("/src/test"));
     let changesToTests = 0;
     for (let file of testFiles) {        
