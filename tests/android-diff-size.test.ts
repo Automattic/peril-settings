@@ -63,7 +63,7 @@ describe("PR diff size checks", () => {
         dm.danger.git.diffForFile = jest.fn();
 
         const mockData = { 
-            added: "src/test/something/myTestFile.ko\r\n+ func someCode();\r\n+ let someOtherVar = 0;",
+            added: "+ func someCode();\r\n+ let someOtherVar = 0;",
             removed: "" 
         };
         dm.danger.git.diffForFile.mockReturnValueOnce(Promise.resolve(mockData));
@@ -82,7 +82,7 @@ describe("PR diff size checks", () => {
 
         const mockData = { 
             added: "",
-            removed: "src/test/something/myTestFile.ko\r\n- func someCode();\r\n- let someOtherVar = 0;" 
+            removed: "- func someCode();\r\n- let someOtherVar = 0;" 
         };
         dm.danger.git.diffForFile.mockReturnValueOnce(Promise.resolve(mockData));
 
@@ -99,8 +99,8 @@ describe("PR diff size checks", () => {
         dm.danger.git.diffForFile = jest.fn();
 
         const mockData = { 
-            added: "src/test/something/myTestFile.ko\r\n+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
-            removed: "src/test/something/myTestFile.ko\r\n- func someCode();\r\n- let someOtherVar = 0;" 
+            added: "+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
+            removed: "- func someCode();\r\n- let someOtherVar = 0;" 
         };
         dm.danger.git.diffForFile.mockReturnValueOnce(Promise.resolve(mockData));
 
@@ -117,12 +117,12 @@ describe("PR diff size checks", () => {
         dm.danger.git.diffForFile = jest.fn();
 
         const mockData1 = { 
-            added: "src/test/something/myTestFile.ko\r\n+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
-            removed: "src/test/something/myTestFile.ko\r\n- func someCode();\r\n"
+            added: "+ func someNewCode();\r\n+ let someOtherNewVar = 0;",
+            removed: "- func someCode();\r\n"
         };
         const mockData2 = { 
             added: "",
-            removed: "src/test/something/myOtherTestFile.ko\r\n- func someCode();\r\n- let someOtherVar = 0;" 
+            removed: "- func someCode();\r\n- let someOtherVar = 0;" 
         };
         dm.danger.git.diffForFile
             .mockReturnValueOnce(Promise.resolve(mockData1))
