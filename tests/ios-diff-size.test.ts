@@ -2,7 +2,7 @@ jest.mock("danger", () => jest.fn());
 import danger from "danger";
 const dm = danger as any;
 
-import diffSize from "../org/pr/diff-size";
+import diffSize from "../org/pr/ios-diff-size";
 
 // The mocked data and return values for calls the rule makes.
 beforeEach(() => {
