@@ -6,6 +6,8 @@ export default async () => {
     const modifiedFiles = danger.git.modified_files;
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
+    const additions = danger.github.pr.additions;
+    const deletions = danger.github.pr.deletions;
 
     if (githubLabels.length != 0) {
         const releases = githubLabels.some(label => label.name.includes("Releases"));
@@ -27,7 +29,7 @@ export default async () => {
     }
 
     // Warn when there is a big PR
-    let codeChanges = danger.github.pr.additions + danger.github.pr.deletions - changesToTests;
+    let codeChanges = additions + deletions - changesToTests;
     if (codeChanges > 300) {
         warn("PR has more than 300 lines of code changing. Consider splitting into smaller PRs if possible.");
     }
