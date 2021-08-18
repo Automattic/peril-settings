@@ -1,12 +1,17 @@
 import {warn, danger} from "danger";
 
 export default async () => {
-    // Skip for release PRs
+    // Store the relevant data
+    // This is a workaround for a weird issue/glitch we have been experiencing
+    // where, sometimes, the data is not accessible later in the flow
     const githubLabels = danger.github.issue.labels;
     const modifiedFiles = danger.git.modified_files;
     const createdFiles = danger.git.created_files;
     const deletedFiles = danger.git.deleted_files;
+    const additions = danger.github.pr.additions;
+    const deletions = danger.github.pr.deletions;
 
+    // Skip for release PRs
     if (githubLabels.length != 0) {
         const releases = githubLabels.some(label => label.name.includes("Releases"));
         if (releases) {
@@ -27,7 +32,7 @@ export default async () => {
     }
 
     // Warn when there is a big PR
-    let codeChanges = danger.github.pr.additions + danger.github.pr.deletions - changesToTests;
+    let codeChanges = additions + deletions - changesToTests;
     if (codeChanges > 300) {
         warn("PR has more than 300 lines of code changing. Consider splitting into smaller PRs if possible.");
     }
