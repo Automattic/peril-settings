@@ -1,7 +1,9 @@
 import {warn, danger} from "danger";
 
 export default async () => {
-    // Skip for release PRs
+    // Store the relevant data
+    // This is a workaround for a weird issue/glitch we have been experiencing
+    // where, sometimes, the data is not accessible later in the flow
     const githubLabels = danger.github.issue.labels;
     const modifiedFiles = danger.git.modified_files;
     const createdFiles = danger.git.created_files;
@@ -9,6 +11,7 @@ export default async () => {
     const additions = danger.github.pr.additions;
     const deletions = danger.github.pr.deletions;
 
+    // Skip for release PRs
     if (githubLabels.length != 0) {
         const releases = githubLabels.some(label => label.name.includes("Releases"));
         if (releases) {
