@@ -8,15 +8,16 @@
     "rules": {},
     "repos": {
         "wordpress-mobile/WordPress-iOS": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
+            "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
+                "Automattic/peril-settings@org/pr/milestone.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
-            ],
-            "issues.opened, issues.labeled, issues.unlabeled": [
-                "Automattic/peril-settings@org/issue/label.ts"
             ],
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts",
@@ -24,15 +25,16 @@
             ]
         },
         "wordpress-mobile/WordPress-Android": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
+            "pull_request": [
                 "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
+                "Automattic/peril-settings@org/pr/milestone.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
-            ],
-            "issues.opened, issues.labeled, issues.unlabeled": [
-                "Automattic/peril-settings@org/issue/label.ts"
             ],
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts",
@@ -51,10 +53,14 @@
             ]
         },
         "woocommerce/woocommerce-ios": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
+            "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
+                "Automattic/peril-settings@org/pr/milestone.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts"
@@ -65,23 +71,31 @@
             ]
         },
         "woocommerce/woocommerce-android": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
+            "pull_request": [
                 "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
+                "Automattic/peril-settings@org/pr/milestone.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
-                "Automattic/peril-settings@org/pr/check-tracks.ts",
-                "Automattic/peril-settings@org/pr/release-notes.ts"
+                "Automattic/peril-settings@org/pr/release-notes.ts",
+                "Automattic/peril-settings@org/pr/check-tracks.ts"
             ],
             "status": [
                 "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "Automattic/simplenote-ios": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
+            "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts",
+                "Automattic/peril-settings@org/pr/milestone.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -91,16 +105,24 @@
             ]
         },
         "Automattic/simplenote-macos": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
-                "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
+            "pull_request": [
+                "Automattic/peril-settings@org/pr/ios-macos.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ]
         },
         "Automattic/simplenote-android": {
-            "pull_request, pull_request.labeled, pull_request.unlabeled": [
-                "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/label.ts",
+            "pull_request": [
+                "Automattic/peril-settings@org/pr/android.ts"
+            ],
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
