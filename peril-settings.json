@@ -12,10 +12,13 @@
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -29,10 +32,13 @@
                 "Automattic/peril-settings@org/pr/android.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
+                "Automattic/peril-settings@org/pr/label.ts"
+            ],
+            "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -57,10 +63,13 @@
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts"
@@ -75,10 +84,13 @@
                 "Automattic/peril-settings@org/pr/android.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts"
@@ -92,10 +104,13 @@
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -108,10 +123,13 @@
             "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ]
         },
@@ -119,10 +137,13 @@
             "pull_request": [
                 "Automattic/peril-settings@org/pr/android.ts"
             ],
-            "pull_request.opened, pull_request.labeled, pull_request.unlabeled, issues.opened, issues.labeled, issues.unlabeled": [
+            "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "issues.opened, issues.labeled, issues.unlabeled": [
+                "Automattic/peril-settings@org/issue/label.ts"
+            ],
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
