@@ -18,7 +18,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -38,7 +38,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -69,7 +69,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts"
@@ -90,7 +90,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/android-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts",
                 "Automattic/peril-settings@org/pr/check-tracks.ts"
@@ -110,7 +110,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/ios-diff-size.ts",
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
@@ -129,7 +129,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ]
         },
@@ -143,7 +143,7 @@
             "issues.opened, issues.labeled, issues.unlabeled": [
                 "Automattic/peril-settings@org/issue/label.ts"
             ],
-            "pull_request.opened, pull_request.synchronize": [
+            "pull_request.opened, pull_request.synchronize, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/release-notes.ts"
             ],
             "status": [
