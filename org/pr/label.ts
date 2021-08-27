@@ -9,8 +9,8 @@ export default async () => {
     }
 
     // A PR shouldn't be merged with the 'DO NOT MERGE' label
-    const doNotMerge = githubLabels.some(label => label.name.includes("DO NOT MERGE") || label.name.includes("status: do not merge"));
-    if (doNotMerge) {
-        fail("This PR is tagged with 'DO NOT MERGE'.");
+    const doNotMergeLabel = githubLabels.find(label => label.name.toLowerCase().includes("do not merge"));
+    if (doNotMergeLabel) {
+        fail(`This PR is tagged with '${doNotMergeLabel.name}' label.`);
     }
 };
