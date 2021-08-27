@@ -3,7 +3,7 @@ import danger from "danger";
 const dm = danger as any;
 
 import label from "../org/issue/label";
-import label_wc from "../org/issue/label-wc";
+import label_woo from "../org/issue/label-woo";
 
 // The mocked data and return values for calls the rule makes.
 beforeEach(() => {
@@ -69,7 +69,7 @@ describe("issue label checks for WooCommerce repos", () => {
             }
         ]
 
-        await label_wc();
+        await label_woo();
 
         expect(dm.fail).toHaveBeenCalledWith("Please add a type label to this issue. e.g. 'type: enhancement'");
         expect(dm.fail).not.toHaveBeenCalledWith("Please add a feature label to this issue. e.g. 'feature: stats'");
@@ -82,7 +82,7 @@ describe("issue label checks for WooCommerce repos", () => {
             }
         ]
 
-        await label_wc();
+        await label_woo();
 
         expect(dm.fail).not.toHaveBeenCalledWith("Please add a type label to this issue. e.g. 'type: enhancement'");
         expect(dm.fail).toHaveBeenCalledWith("Please add a feature label to this issue. e.g. 'feature: stats'");
@@ -98,7 +98,7 @@ describe("issue label checks for WooCommerce repos", () => {
             }
         ]
 
-        await label_wc();
+        await label_woo();
 
         expect(dm.fail).not.toHaveBeenCalled();
     })
