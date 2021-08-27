@@ -1,5 +1,6 @@
 import {fail, danger} from "danger";
 
+// Note: This rule does not apply to WooCommerce repo (which instead uses `label-woo.ts` and different label names)
 export default async () => {
     const githubLabels = danger.github.issue.labels;
 
