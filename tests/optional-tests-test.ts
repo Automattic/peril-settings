@@ -59,8 +59,6 @@ const testHoldContexts: string[] = [
     "ci/circleci: Optional Tests/Hold",
     "ci/circleci: wordpress_ios/Optional Tests",
     "ci/circleci: fluxc/Optional Tests",
-    "ci/circleci: Installable Build/Approve Jetpack",
-    "ci/circleci: Installable Build/Approve WordPress",
     "ci/circleci: simplenote_ios/Optional Full UI Test"
 ]
 
