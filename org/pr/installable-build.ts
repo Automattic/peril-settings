@@ -9,6 +9,8 @@ const PERIL_BOT_USER_ID: number = parseInt(process.env['PERIL_BOT_USER_ID'], 10)
 
 // This is a list of the CircleCI statuses to process
 const HOLD_CONTEXTS: string[] = ["ci/circleci: Installable Build/Hold", "ci/circleci: Installable Build/Approve WordPress"]
+// In some cases, we want to update the status of the job, but we don't want to post a CFA comment.
+const HOLD_CONTEXTS_NO_COMMENT: string[] = ["ci/circleci: Installable Build/Approve Jetpack"]
 // The following statuses are described with regex in order to be able to handle special cases where the app name is added to the state, 
 // e.g. "ci/circleci: Jetpack Installable Build"
 const INSTALLABLE_BUILD_CONTEXTS: string[] = ["ci\/circleci:.*Installable Build$", "ci\/circleci:.*Test Android on Device$"] 
@@ -136,7 +138,7 @@ async function getDownloadCommentText(status) {
 }
 
 export default async (status: Status) => {
-    if (status.state == "pending" && HOLD_CONTEXTS.includes(status.context)) {
+    if (status.state == "pending" && HOLD_CONTEXTS.concat(HOLD_CONTEXTS_NO_COMMENT).includes(status.context)) {
       await markStatusAsSuccess(status)
       await createOrUpdateComment(status, `You can trigger an installable build for these changes by visiting CircleCI [here](${status.target_url}).`)
     } else if (status.state ==  "success" && INSTALLABLE_BUILD_CONTEXTS.filter(s => status.context.match(s)).length > 0) {
