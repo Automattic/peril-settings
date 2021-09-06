@@ -107,7 +107,7 @@ describe("installable build handling", () => {
 
     // This is a special case to handle the Jetpack application: since it shares the repository with WordPress,
     // we don't want a "trigger" comment to be generated, but we still want the status of the job to be green when on hold
-    it("updates the status to be 'success' when it is the right context, and comments", async () => {
+    it("updates the status to be 'success' when it is the right context, but doesn't comment", async () => {
       const webhook: any = {
           state: "pending",
           context: "ci/circleci: Installable Build/Approve Jetpack",
@@ -129,6 +129,8 @@ describe("installable build handling", () => {
           description: webhook.description,
           target_url: webhook.target_url,
       })
+
+      expect(dm.danger.github.api.issues.createComment).not.toHaveBeenCalled();
   })
 
     it("Posts a download comment with the content of comment.json when the standard context is used", async () => {

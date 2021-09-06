@@ -140,7 +140,9 @@ async function getDownloadCommentText(status) {
 export default async (status: Status) => {
     if (status.state == "pending" && HOLD_CONTEXTS.concat(HOLD_CONTEXTS_NO_COMMENT).includes(status.context)) {
       await markStatusAsSuccess(status)
-      await createOrUpdateComment(status, `You can trigger an installable build for these changes by visiting CircleCI [here](${status.target_url}).`)
+      if (HOLD_CONTEXTS.includes(status.context)) {
+        await createOrUpdateComment(status, `You can trigger an installable build for these changes by visiting CircleCI [here](${status.target_url}).`)
+      }
     } else if (status.state ==  "success" && INSTALLABLE_BUILD_CONTEXTS.filter(s => status.context.match(s)).length > 0) {
       const commentBody = await getDownloadCommentText(status)
       if (commentBody === undefined) {
