@@ -105,6 +105,34 @@ describe("installable build handling", () => {
         expectComment(webhook, `You can trigger an installable build for these changes by visiting CircleCI [here](${webhook.target_url}).`)
     })
 
+    // This is a special case to handle the Jetpack application: since it shares the repository with WordPress,
+    // we don't want a "trigger" comment to be generated, but we still want the status of the job to be green when on hold
+    it("updates the status to be 'success' when it is the right context, but doesn't comment", async () => {
+      const webhook: any = {
+          state: "pending",
+          context: "ci/circleci: Installable Build/Approve Jetpack",
+          description: "Holding build",
+          target_url: "https://circleci.com/workflow-run/abcdefg",
+          repository: {
+              name: 'Repo',
+              owner: { login: 'Owner' }
+          },
+          commit: { sha: 'abc' }
+      }
+      await installableBuild(webhook)
+
+      expect(dm.danger.github.api.repos.createStatus).toBeCalledWith({
+          owner: webhook.repository.owner.login,
+          repo: webhook.repository.name,
+          state: "success",
+          context: webhook.context,
+          description: webhook.description,
+          target_url: webhook.target_url,
+      })
+
+      expect(dm.danger.github.api.issues.createComment).not.toHaveBeenCalled();
+  })
+
     it("Posts a download comment with the content of comment.json when the standard context is used", async () => {
       mockedArtifacts = [{
         path: 'comment.json',
