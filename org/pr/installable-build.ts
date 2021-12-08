@@ -135,16 +135,8 @@ async function getDownloadCommentText(status) {
   if (apkArtifacts.length == 1) {
     return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifacts[0].url}).`
   } else if (apkArtifacts.length > 1) {
-    let links = [];
-    for ( let artifact of apkArtifacts ) {
-      links.push( ` - [${artifact.path.split("/").pop()}](${artifact.url})` );
-      let dataUrl = await generateQR( artifact.url );
-      links.push( `<img src="${dataUrl}" />` )
-    }
-
-    const linkString = links.join( '\n' );
-
-    return `You can test the changes on this Pull Request by downloading the APKs:\n${linkString}`
+    const links = apkArtifacts.map(artifact => ` - [${artifact.path.split("/").pop()}](${artifact.url})\n<img src="${ generateQR( artifact.url )}" />`).join(`\n`)
+    return `You can test the changes on this Pull Request by downloading the APKs:\n${links}`
   }
   return undefined
 }
