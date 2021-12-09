@@ -229,6 +229,6 @@ describe("installable build handling", () => {
       }
       await installableBuild(webhook)
 
-      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n - [file1.apk](${mockedArtifacts[0].url})\n<img src="${mockedArtifacts[0].qrCode}" />\n - [file2.apk](${mockedArtifacts[1].url})\n<img src="${mockedArtifacts[1].qrCode}" />`)
+      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n - [file1.apk](${mockedArtifacts[0].url})\n<img src="${mockedArtifacts[0].qrCode}" />\n\n - [file2.apk](${mockedArtifacts[1].url})\n<img src="${mockedArtifacts[1].qrCode}" />\n`)
     })
 })
