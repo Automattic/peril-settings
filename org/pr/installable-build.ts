@@ -109,6 +109,10 @@ async function circleCIArtifacts(status) {
   return []
 }
 
+function generateQR( text ) {
+  return `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent( text )}&choe=UTF-8`;
+}
+
 async function getDownloadCommentText(status) {
   const artifacts: Array<any> = await circleCIArtifacts(status)
 
@@ -131,7 +135,7 @@ async function getDownloadCommentText(status) {
   if (apkArtifacts.length == 1) {
     return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifacts[0].url}).`
   } else if (apkArtifacts.length > 1) {
-    const links = apkArtifacts.map(artifact => ` - [${artifact.path.split("/").pop()}](${artifact.url})`).join(`\n`)
+    const links = apkArtifacts.map(artifact => ` - [${artifact.path.split("/").pop()}](${artifact.url})\n<img src="${ generateQR( artifact.url )}" />`).join(`\n`)
     return `You can test the changes on this Pull Request by downloading the APKs:\n${links}`
   }
   return undefined

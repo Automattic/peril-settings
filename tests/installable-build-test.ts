@@ -208,10 +208,12 @@ describe("installable build handling", () => {
     it("Posts a download comment linking to multiple APKs", async () => {
       mockedArtifacts = [{
         path: 'Artifacts/file1.apk',
-        url: 'https://circleci.com/artifacts/file1.apk'
+        url: 'https://circleci.com/artifacts/file1.apk',
+        qrCode: 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https%3A%2F%2Fcircleci.com%2Fartifacts%2Ffile1.apk&choe=UTF-8'
       },{
         path: 'file2.apk',
-        url: 'https://circleci.com/file2.apk'
+        url: 'https://circleci.com/file2.apk',
+        qrCode: 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https%3A%2F%2Fcircleci.com%2Ffile2.apk&choe=UTF-8'
       }]
 
       const webhook: any = {
@@ -227,6 +229,6 @@ describe("installable build handling", () => {
       }
       await installableBuild(webhook)
 
-      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n - [file1.apk](${mockedArtifacts[0].url})\n - [file2.apk](${mockedArtifacts[1].url})`)
+      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n - [file1.apk](${mockedArtifacts[0].url})\n<img src="${mockedArtifacts[0].qrCode}" />\n - [file2.apk](${mockedArtifacts[1].url})\n<img src="${mockedArtifacts[1].qrCode}" />`)
     })
 })
