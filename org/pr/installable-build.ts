@@ -134,9 +134,21 @@ async function getDownloadCommentText(status) {
   const apkArtifacts: Array<any> = artifacts.filter(artifact => artifact.path.endsWith(".apk"))
   if (apkArtifacts.length == 1) {
     return `You can test the changes on this Pull Request by downloading the APK [here](${apkArtifacts[0].url}).`
-  } else if (apkArtifacts.length > 1) {
-    const links = apkArtifacts.map(artifact => ` - [${artifact.path.split("/").pop()}](${artifact.url})\n<img src="${ generateQR( artifact.url )}" />\n`).join(`\n`)
-    return `You can test the changes on this Pull Request by downloading the APKs:\n${links}`
+  } else if ( apkArtifacts.length > 1 ) {
+
+  return `You can test the changes on this Pull Request by downloading the APKs:
+      <table>
+      <tr><td>WordPress App</td><td>Jetpack App</td></tr>
+      <tr>
+        <td>
+          <a href="${apkArtifacts[1].url}"><img src="${apkArtifacts[1].qrCode}" /></a>
+        </td>
+        <td>
+          <a href="${apkArtifacts[0].url}"><img src="${apkArtifacts[0].qrCode}" /></a>
+        </td>
+      <tr>
+    </table>
+  `
   }
   return undefined
 }

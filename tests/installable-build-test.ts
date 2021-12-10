@@ -228,7 +228,19 @@ describe("installable build handling", () => {
         commit: { sha: 'abc' }
       }
       await installableBuild(webhook)
-
-      expectComment(webhook, `You can test the changes on this Pull Request by downloading the APKs:\n - [file1.apk](${mockedArtifacts[0].url})\n<img src="${mockedArtifacts[0].qrCode}" />\n\n - [file2.apk](${mockedArtifacts[1].url})\n<img src="${mockedArtifacts[1].qrCode}" />\n`)
+      const expected = `You can test the changes on this Pull Request by downloading the APKs:
+      <table>
+      <tr><td>WordPress App</td><td>Jetpack App</td></tr>
+      <tr>
+        <td>
+          <a href="${mockedArtifacts[1].url}"><img src="${mockedArtifacts[1].qrCode}" /></a>
+        </td>
+        <td>
+          <a href="${mockedArtifacts[0].url}"><img src="${mockedArtifacts[0].qrCode}" /></a>
+        </td>
+      <tr>
+    </table>
+  `;
+      expectComment(webhook, expected)
     })
 })
