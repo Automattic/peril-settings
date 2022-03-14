@@ -4,16 +4,15 @@ import {message, danger} from "danger";
     This rule scans a PR for tracks related changes and adds
     instructions for handling them.
 */
-async function checkTracksManagementFiles() {
+async function checkTracksManagementFiles(modifiedFiles: string[]) {
     // Hard coding the file name to check. 
     // This can be defined in the repo in the future. 
     const tracksFiles: string[] = [
         "AnalyticsTracker.kt",
+        "AnalyticsEvent.kt",
         "LoginAnalyticsTracker.kt",
         "WooAnalyticsStat.swift"
     ];
-
-    const modifiedFiles = danger.git.modified_files;
 
     let hasChanges: boolean = false;
     for (let thisFile of tracksFiles) {
@@ -25,29 +24,12 @@ async function checkTracksManagementFiles() {
     return hasChanges;
 }
 
-async function checkCommitDiffs() {
+async function checkCommitDiffs(modifiedFiles: string[], git: any) {
     let hasChanges: boolean = false;
     
-    const git = danger.git
-
-    for (let thisFile of git.modified_files) {
-
+    for (let thisFile of modifiedFiles) {
         // Look for subtree changes in the PR.
         console.log(`Scanning changes in ${thisFile}.`);
-
-        if (git === undefined) {
-            console.log("About to crash due to an error")
-            console.log("File:", thisFile)
-            console.log("Danger Object: ", danger)
-
-            if (danger !== undefined) {
-                console.log("Danger is no longer defined")
-            }
-            else {
-                console.log("Danger Git Object: ", danger.git)
-            }
-        }
-
         const diff = await git.diffForFile(thisFile);
         if (/AnalyticsTracker\.track/.test(diff.diff)) {
             hasChanges = true;
@@ -58,8 +40,13 @@ async function checkCommitDiffs() {
 }
 
 export default async () => {
-    const tracksFileChanged = await checkTracksManagementFiles();
-    const commitDiffs = await checkCommitDiffs();
+    // Store the relevant data
+    // This is a workaround for a weird issue/glitch we have been experiencing
+    // where, sometimes, the data is not accessible later in the flow
+    const modifiedFiles = danger.git.modified_files;
+
+    const tracksFileChanged = await checkTracksManagementFiles(modifiedFiles);
+    const commitDiffs = await checkCommitDiffs(modifiedFiles, danger.git);
 
     if (tracksFileChanged || commitDiffs) {
         console.log(`Tracks related changes detected: publishing instructions.`);
