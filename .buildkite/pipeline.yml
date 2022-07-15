@@ -1,0 +1,29 @@
+steps:
+  - label: "Test"
+    command: |
+      yarn install --frozen-lockfile
+      yarn jest --ci --runInBand --reporters=default --reporters=jest-junit
+    key: test
+    plugins:
+      - docker#v3.13.0:
+          image: node:10
+          environment:
+            - "JEST_JUNIT_OUTPUT=reports/test-results/test-results.xml"
+    artifact_paths:
+      - "reports/**/*"
+
+  - label: "Deploy"
+    command: |
+      npm install -g heroku
+      heroku --version
+
+      heroku restart -a automattic-peril
+      heroku restart -a wordpress-mobile-peril
+      heroku restart -a woocommerce-peril
+    plugins:
+      - docker#v3.13.0:
+          image: node:10
+          environment:
+            - HEROKU_API_KEY
+    depends_on: test
+    if: build.branch == "master"
