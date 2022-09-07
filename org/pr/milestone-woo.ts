@@ -33,7 +33,7 @@ export default async () => {
         return;
     }
 
-    // Warn if the milestone is closing in less than 4 days
+    // Warn if the milestone is closing in less than 2 days
     const warningDays = 2;
     const warningThreshold = warningDays * 1000 * 3600 * 24; // Convert days to milliseconds
     if ((currentPR.data.state != "closed") && (currentPR.data.milestone.due_on != null)) {
