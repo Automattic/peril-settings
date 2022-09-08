@@ -61,7 +61,7 @@
         "woocommerce/woocommerce-ios": {
             "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts"
+                "Automattic/peril-settings@org/pr/milestone-woo.ts"
             ],
             "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
@@ -82,7 +82,7 @@
         "woocommerce/woocommerce-android": {
             "pull_request": [
                 "Automattic/peril-settings@org/pr/android.ts",
-                "Automattic/peril-settings@org/pr/milestone.ts"
+                "Automattic/peril-settings@org/pr/milestone-woo.ts"
             ],
             "pull_request.opened, pull_request.labeled, pull_request.unlabeled": [
                 "Automattic/peril-settings@org/pr/label.ts"
