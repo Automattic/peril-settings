@@ -49,6 +49,18 @@ describe("PR label checks", () => {
         expect(dm.fail).toHaveBeenCalledWith("This PR is tagged with 'status: do not merge' label.");
     })
 
+    it("fails if '[Status] Not Ready for Merge' label is present (WPAndroid repo)", async () => {
+        dm.danger.github.issue.labels = [
+            {
+                name: '[Status] Not Ready for Merge'
+            }
+        ]
+
+        await label();
+
+        expect(dm.fail).toHaveBeenCalledWith("This PR is tagged with '[Status] Not Ready for Merge' label.");
+    })
+
     it("does not fail if there is no do-not-merge label", async () => {
         dm.danger.github.issue.labels = [
             {
