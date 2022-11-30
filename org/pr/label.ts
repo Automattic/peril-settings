@@ -9,7 +9,7 @@ export default async () => {
     }
 
     function is_do_not_merge_label(label) {
-        var lc_label = label.name.toLowerCase();
+        const lc_label = label.name.toLowerCase();
         return lc_label.includes("do not merge") || lc_label.includes("not ready for merge");
     }
 
