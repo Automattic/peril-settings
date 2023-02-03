@@ -38,10 +38,22 @@ beforeEach(() => {
 });
 
 describe("Podfile should not reference commit hashes checks", () => {
-    it("fails when finds a commit hash", async () => {
+    it("fails when finds a commit hash with Ruby pre-1.9 syntax", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
                 "pod 'MyTestPod', :git => 'https://github.com/my_test_pod/MyTestPod.git', :commit => '82f65c9cac2b59940db219a2327e12a0adfea4e3'"
+                )
+            );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
+    })
+
+    it("fails when finds a commit hash", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                "pod 'MyTestPod', git: 'https://github.com/my_test_pod/MyTestPod.git', commit: '82f65c9cac2b59940db219a2327e12a0adfea4e3'"
                 )
             );
 
@@ -62,9 +74,19 @@ describe("Podfile should not reference commit hashes checks", () => {
         expect(dm.fail).not.toHaveBeenCalled();
     })
 
-    it("fails when finds a commit hash (mobile gutenberg style)", async () => {
+    it("fails when finds a commit hash (mobile gutenberg style, Ruby pre-1.9 syntax)", async () => {
         let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
         podFile += "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
+    })
+
+    it("fails when finds a commit hash (mobile gutenberg style)", async () => {
+        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
+        podFile += "gutenberg commit: '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
         dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
 
         await iosMacos();
