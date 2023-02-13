@@ -35,8 +35,7 @@ export default async () => {
     // DEPENDENCIES:
     //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
     //     - WordPress - Editor - iOS(~> 1.19.8)
-    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398
-// cad`)
+    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
     const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
 
