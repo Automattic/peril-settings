@@ -38,69 +38,34 @@ beforeEach(() => {
 });
 
 describe("Podfile should not reference commit hashes checks", () => {
-    it("fails when finds a commit hash with Ruby pre-1.9 syntax", async () => {
+    it("fails when finds a commit", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
-                "pod 'MyTestPod', :git => 'https://github.com/my_test_pod/MyTestPod.git', :commit => '82f65c9cac2b59940db219a2327e12a0adfea4e3'"
-                )
-            );
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - TestPod(from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`)
+                    - WordPressKit (~> 6.1.0-beta)
+                `
+            )
+        );
 
         await iosMacos();
 
         expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
     })
 
-    it("fails when finds a commit hash", async () => {
+    it("does not fail when finds no commit", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
-                "pod 'MyTestPod', git: 'https://github.com/my_test_pod/MyTestPod.git', commit: '82f65c9cac2b59940db219a2327e12a0adfea4e3'"
-                )
-            );
-
-        await iosMacos();
-
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
-    })
-
-    it("does not fail when finds a version", async () => {
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(
-            Promise.resolve(
-                "pod 'MyTestPod', '~> 1.1.0'"
-                )
-            );
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - WordPressKit (~> 6.1.0-beta)
+                `
+            )
+        );
 
         await iosMacos();
 
         expect(dm.fail).not.toHaveBeenCalled();
-    })
-
-    it("fails when finds a commit hash (mobile gutenberg style, Ruby pre-1.9 syntax)", async () => {
-        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
-        podFile += "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
-
-        await iosMacos();
-
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
-    })
-
-    it("fails when finds a commit hash (mobile gutenberg style)", async () => {
-        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
-        podFile += "gutenberg commit: '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
-
-        await iosMacos();
-
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
-    })
-
-    it("does not fail when finds a version (mobile gutenberg style)", async () => {
-        let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
-        podFile += "gutenberg :tag => 'v1.39.0'\n";
-        dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
-
-        await iosMacos();
-
-        expect(dm.fail).not.toHaveBeenCalled();
-    })
+    });
 })

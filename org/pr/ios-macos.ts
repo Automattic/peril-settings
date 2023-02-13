@@ -4,7 +4,7 @@ export default async () => {
 
     const pr = danger.github.pr;
     const githubLabels = danger.github.issue.labels;
-    
+
     // Core Data Model Safety Checks
     const targetReleaseBranch = pr.base.ref.startsWith("release/");
     const modifiedFiles = danger.git.modified_files;
@@ -14,12 +14,26 @@ export default async () => {
         warn("Core Data: Do not edit an existing Core Data model in a release branch unless it hasn't been released to testers yet. Instead create a new model version and merge back to develop soon.");
     }
 
-    // Podfile should not reference commit hashes
-    const podfileContents = await danger.github.utils.fileContents("Podfile");
-    const matchesOldRuby = podfileContents.match(/^[^#[]*:commit =>/gm);
-    const matchesNewRuby = podfileContents.match(/^[^#[]*commit:/gm);
-    if (matchesOldRuby !== null || matchesNewRuby !== null) {
-        fail("Podfile: reference to a commit hash");
+    // Podfile should not reference commit hashes.
+    //
+    // Verify by parsing Podfile.lock because it uses a standard format, unlike Podfile which might be written in different ways.
+    //
+    // Example of relevant Podfile.lock portion:
+    //
+    // DEPENDENCIES:
+    //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
+    //     - WordPress - Editor - iOS(~> 1.19.8)
+    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398
+// cad`)
+    const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
+    const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
+
+    if (podfileLockYAML != null && podfileLockYAML["DEPENDENCIES"] != null) {
+        // check if any pods are referenced from a commit hash
+        const podsReferencedByCommit = podfileLockYAML["DEPENDENCIES"].filter((pod: any) => pod.includes(", commit `"));
+        if (podsReferencedByCommit.length > 0) {
+            fail("Podfile: reference to a commit hash");
+        }
     }
 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
