@@ -1,5 +1,17 @@
 import {message, warn, fail, danger} from "danger";
 
+function findCommitPods(entry: any): string[] {
+    if (typeof entry === 'string') {
+        const match = entry.match(/(.*)\(from .*, commit `.*`/);
+        return (match != null) ? [match[1]] : [];
+    } else {
+        const key: string = Object.keys(entry)[0];
+        const keyMatch: string[] = findCommitPods(key);
+        const depsMatches: string[] = entry[key].flatMap(findCommitPods);
+        return keyMatch.concat(depsMatches);
+    }
+}
+
 export default async () => {
 
     const pr = danger.github.pr;
@@ -28,14 +40,13 @@ export default async () => {
     const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
 
-    if (podfileLockYAML != null && podfileLockYAML["DEPENDENCIES"] != null) {
-        // check if any pods are referenced from a commit hash
-        const podsReferencedByCommit = podfileLockYAML["DEPENDENCIES"].filter((pod: any) => pod.includes(", commit `"));
-        if (podsReferencedByCommit.length > 0) {
-            fail("Podfile: reference to a commit hash");
-        }
+    // check if any pods are referenced from a commit hash
+    const allPods = podfileLockYAML && podfileLockYAML["DEPENDENCIES"]
+    const podsReferencedByCommit = allPods?.flatMap(findCommitPods)
+    if (podsReferencedByCommit?.length > 0) {
+        fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
     }
-
+ 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
     const hasModifiedReleaseNotes = modifiedFiles.some(f => f.endsWith("Resources/release_notes.txt"));
     const hasModifiedAppStoreStrings = modifiedFiles.some(f => f.includes("Resources/AppStoreStrings.po"));

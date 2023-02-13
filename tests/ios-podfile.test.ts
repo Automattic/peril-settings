@@ -38,7 +38,7 @@ beforeEach(() => {
 });
 
 describe("Podfile should not reference commit hashes checks", () => {
-    it("fails when finds a commit", async () => {
+    it("fails when finds a commit reference", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
                 `DEPENDENCIES:
@@ -51,7 +51,43 @@ describe("Podfile should not reference commit hashes checks", () => {
 
         await iosMacos();
 
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash");
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod");
+    })
+
+    it("fails when finds commit references in transitive dependencies", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - WordPressKit (~> 6.1.0-beta)
+                    - TestPod (~> 1.7.2):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2(from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
+                      - TestDep3 (~> 1.7.2)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestDep2");
+    })
+
+    it("fails when finds multiple commit references", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - TestPod(from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2(from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
+                      - TestDep3 (~> 1.7.2)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod,TestDep2");
     })
 
     it("does not fail when finds no commit", async () => {
