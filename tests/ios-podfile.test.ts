@@ -81,13 +81,16 @@ describe("Podfile should not reference commit hashes checks", () => {
                       - TestDep1 (~> 2.0-beta)
                       - TestDep2(from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
                       - TestDep3 (~> 1.7.2)
+                    - WordPressKit (~> 6.1.0-beta):
+                      - WordPressShared(from \`https://github.com/test/pod2.git\`, commit \`e123bd0a9fef58a5897ed2101044f56a42e614c7\`)
+                    - StandalonePod (~> 1.2.7)
                 `
             )
         );
 
         await iosMacos();
 
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod,TestDep2");
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod,TestDep2,WordPressShared");
     })
 
     it("does not fail when finds no commit", async () => {
