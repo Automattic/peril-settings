@@ -1,15 +1,20 @@
 import {message, warn, fail, danger} from "danger";
 
-function findCommitPods(entry: any): string[] {
+// Example of relevant Podfile.lock portion:
+//
+// DEPENDENCIES:
+//     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
+//     - WordPress - Editor - iOS(~> 1.19.8)
+//     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
+function parseCommitPods(list: string[], entry: any): string[] {
     if (typeof entry === 'string') {
         const match = entry.match(/(.*)\(from .*, commit `.*`/);
-        return (match != null) ? [match[1]] : [];
+        if (match != null) { list.push(match[1]) };
     } else {
         const key: string = Object.keys(entry)[0];
-        const keyMatch: string[] = findCommitPods(key);
-        const depsMatches: string[] = entry[key].flatMap(findCommitPods);
-        return keyMatch.concat(depsMatches);
+        list = [key, ...entry[key]].reduce(parseCommitPods, list);
     }
+    return list
 }
 
 export default async () => {
@@ -30,19 +35,11 @@ export default async () => {
     //
     // Verify by parsing Podfile.lock because it uses a standard format, unlike Podfile which might be written in different ways.
     //
-    // Example of relevant Podfile.lock portion:
-    //
-    // DEPENDENCIES:
-    //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
-    //     - WordPress - Editor - iOS(~> 1.19.8)
-    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
     const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
-
-    // check if any pods are referenced from a commit hash
-    const allPods = podfileLockYAML && podfileLockYAML["DEPENDENCIES"]
-    const podsReferencedByCommit = allPods?.flatMap(findCommitPods)
-    if (podsReferencedByCommit?.length > 0) {
+    const allPods: any[] = (podfileLockYAML && podfileLockYAML["DEPENDENCIES"]) || [];
+    const podsReferencedByCommit: string[] = allPods.reduce(parseCommitPods, []);
+    if (podsReferencedByCommit.length > 0) {
         fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
     }
  
