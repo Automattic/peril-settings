@@ -8,6 +8,9 @@
     "rules": {},
     "repos": {
         "wordpress-mobile/WordPress-iOS": {
+            "merge_group": [
+                "Automattic/peril-settings@org/pr/ios-macos.ts"
+            ],
             "pull_request": [
                 "Automattic/peril-settings@org/pr/ios-macos.ts",
                 "Automattic/peril-settings@org/pr/milestone.ts"
