@@ -6,7 +6,7 @@ steps:
     key: test
     plugins:
       - docker#v3.13.0:
-          image: node:10
+          image: node:16
           environment:
             - "JEST_JUNIT_OUTPUT=reports/test-results/test-results.xml"
     artifact_paths:
@@ -22,7 +22,7 @@ steps:
       heroku restart -a woocommerce-peril
     plugins:
       - docker#v3.13.0:
-          image: node:10
+          image: node:16
           environment:
             - HEROKU_API_KEY
     depends_on: test
