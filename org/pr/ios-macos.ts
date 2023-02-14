@@ -40,9 +40,9 @@ export default async () => {
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
 
     // check if any pods are referenced from a commit hash
-    const allPods = podfileLockYAML && podfileLockYAML["DEPENDENCIES"]
-    const podsReferencedByCommit = allPods?.flatMap(findCommitPods)
-    if (podsReferencedByCommit?.length > 0) {
+    const allPods: any[] = (podfileLockYAML && podfileLockYAML["DEPENDENCIES"]) || []
+    const podsReferencedByCommit = allPods.flatMap(findCommitPods)
+    if (podsReferencedByCommit.length > 0) {
         fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
     }
  

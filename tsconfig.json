@@ -2,10 +2,10 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "lib": [
-            "es2017",
+            "es2019",
             "dom"
         ],
-        "target": "es2017"
+        "target": "es2019"
     },
     "exclude": [
         "node_modules"
