@@ -107,4 +107,22 @@ describe("Podfile should not reference commit hashes checks", () => {
 
         expect(dm.fail).not.toHaveBeenCalled();
     });
+
+    it("does not fail when finds no commit, including in transitive dependencies", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - WordPressKit (~> 6.1.0-beta)
+                    - TestPod (~> 1.7.2):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2 (~> 1.7.2)
+                      - TestDep3 (~> 1.7.2)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).not.toHaveBeenCalled();
+    });
 })
