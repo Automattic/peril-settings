@@ -1,5 +1,22 @@
 import {message, warn, fail, danger} from "danger";
 
+// Example of relevant Podfile.lock portion:
+//
+// DEPENDENCIES:
+//     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
+//     - WordPress - Editor - iOS(~> 1.19.8)
+//     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
+function parseCommitPods(list: string[], entry: any): string[] {
+    if (typeof entry === 'string') {
+        const match = entry.match(/(.*)\(from .*, commit `.*`/);
+        if (match != null) { list.push(match[1]) };
+    } else {
+        const key: string = Object.keys(entry)[0];
+        list = [key, ...entry[key]].reduce(parseCommitPods, list);
+    }
+    return list
+}
+
 export default async () => {
 
     const pr = danger.github.pr;
@@ -18,24 +35,14 @@ export default async () => {
     //
     // Verify by parsing Podfile.lock because it uses a standard format, unlike Podfile which might be written in different ways.
     //
-    // Example of relevant Podfile.lock portion:
-    //
-    // DEPENDENCIES:
-    //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
-    //     - WordPress - Editor - iOS(~> 1.19.8)
-    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398
-// cad`)
     const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
-
-    if (podfileLockYAML != null && podfileLockYAML["DEPENDENCIES"] != null) {
-        // check if any pods are referenced from a commit hash
-        const podsReferencedByCommit = podfileLockYAML["DEPENDENCIES"].filter((pod: any) => pod.includes(", commit `"));
-        if (podsReferencedByCommit.length > 0) {
-            fail("Podfile: reference to a commit hash");
-        }
+    const allPods: any[] = (podfileLockYAML && podfileLockYAML["DEPENDENCIES"]) || [];
+    const podsReferencedByCommit: string[] = allPods.reduce(parseCommitPods, []);
+    if (podsReferencedByCommit.length > 0) {
+        fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
     }
-
+ 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
     const hasModifiedReleaseNotes = modifiedFiles.some(f => f.endsWith("Resources/release_notes.txt"));
     const hasModifiedAppStoreStrings = modifiedFiles.some(f => f.includes("Resources/AppStoreStrings.po"));
