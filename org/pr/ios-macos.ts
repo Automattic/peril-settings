@@ -62,11 +62,13 @@ function parseCommitPods(list: string[], entry: any): string[] {
     // Example of relevant Podfile.lock portion:
     //
     // DEPENDENCIES:
-    //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
-    //     - WordPress - Editor - iOS(~> 1.19.8)
-    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
+    //     - Kanvas (from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
+    //     - WordPress-Editor-iOS (~> 1.19.8)
+    //     - WordPressUI (from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
+    //     - WordPressKit (~> 6.1.0-beta):
+    //       - WordPressShared (from `https://github.com/test/pod2.git`, commit `e123bd0a9fef58a5897ed2101044f56a42e614c7`)
     if (typeof entry === 'string') {
-        const match = entry.match(/(.*)\(from .*, commit `.*`/);
+        const match = entry.match(/(.*) \(from .*, commit `.*`/);
         if (match != null) { list.push(match[1]) };
     } else {
         const key: string = Object.keys(entry)[0];

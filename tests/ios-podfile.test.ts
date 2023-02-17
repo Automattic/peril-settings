@@ -43,7 +43,7 @@ describe("Podfile should not reference commit hashes checks", () => {
             Promise.resolve(
                 `DEPENDENCIES:
                     - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
-                    - TestPod(from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`)
+                    - TestPod (from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`)
                     - WordPressKit (~> 6.1.0-beta)
                 `
             )
@@ -61,7 +61,7 @@ describe("Podfile should not reference commit hashes checks", () => {
                     - WordPressKit (~> 6.1.0-beta)
                     - TestPod (~> 1.7.2):
                       - TestDep1 (~> 2.0-beta)
-                      - TestDep2(from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
+                      - TestDep2 (from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
                       - TestDep3 (~> 1.7.2)
                 `
             )
@@ -77,12 +77,12 @@ describe("Podfile should not reference commit hashes checks", () => {
             Promise.resolve(
                 `DEPENDENCIES:
                     - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
-                    - TestPod(from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`):
+                    - TestPod (from \`https://github.com/test/pod.git\`, commit \`82f65c9cac2b59940db219a2327e12a0adfea4e3\`):
                       - TestDep1 (~> 2.0-beta)
-                      - TestDep2(from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
+                      - TestDep2 (from \`https://github.com/test/pod2.git\`, commit \`5dbb1b2ef4b3b8157569df5878b9ea67e3a9377a\`)
                       - TestDep3 (~> 1.7.2)
                     - WordPressKit (~> 6.1.0-beta):
-                      - WordPressShared(from \`https://github.com/test/pod2.git\`, commit \`e123bd0a9fef58a5897ed2101044f56a42e614c7\`)
+                      - WordPressShared (from \`https://github.com/test/pod2.git\`, commit \`e123bd0a9fef58a5897ed2101044f56a42e614c7\`)
                     - StandalonePod (~> 1.2.7)
                 `
             )
