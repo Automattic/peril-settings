@@ -16,7 +16,7 @@ export default async () => {
 
     // Podfile should not reference commit hashes
     const podfileContents = await danger.github.utils.fileContents("Podfile");
-    const matches = podfileContents.match(/^[^#[]*:commit/gm);
+    const matches = podfileContents.match(/^[^#[]*(commit:|:commit)/gm);
     if (matches !== null) {
         fail("Podfile: reference to a commit hash");
     }

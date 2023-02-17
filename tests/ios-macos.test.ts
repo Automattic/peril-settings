@@ -94,7 +94,7 @@ describe("Podfile should not reference commit hashes checks", () => {
 
     it("fails when finds a commit hash (mobile gutenberg style)", async () => {
         let podFile : string = "tag_or_commit = options[:tag] || options[:commit]\n";
-        podFile += "gutenberg :commit => '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
+        podFile += "gutenberg commit: '84396ab3e79ff7cde5bf59310e1458336fd9b6b6'\n";
         dm.danger.github.utils.fileContents.mockReturnValueOnce(Promise.resolve(podFile));
 
         await iosMacos();
