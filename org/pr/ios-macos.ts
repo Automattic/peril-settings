@@ -1,22 +1,5 @@
 import {message, warn, fail, danger} from "danger";
 
-// Example of relevant Podfile.lock portion:
-//
-// DEPENDENCIES:
-//     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
-//     - WordPress - Editor - iOS(~> 1.19.8)
-//     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
-function parseCommitPods(list: string[], entry: any): string[] {
-    if (typeof entry === 'string') {
-        const match = entry.match(/(.*)\(from .*, commit `.*`/);
-        if (match != null) { list.push(match[1]) };
-    } else {
-        const key: string = Object.keys(entry)[0];
-        list = [key, ...entry[key]].reduce(parseCommitPods, list);
-    }
-    return list
-}
-
 export default async () => {
 
     const pr = danger.github.pr;
@@ -42,7 +25,7 @@ export default async () => {
     if (podsReferencedByCommit.length > 0) {
         fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
     }
- 
+
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
     const hasModifiedReleaseNotes = modifiedFiles.some(f => f.endsWith("Resources/release_notes.txt"));
     const hasModifiedAppStoreStrings = modifiedFiles.some(f => f.includes("Resources/AppStoreStrings.po"));
@@ -66,3 +49,28 @@ export default async () => {
         warn("Localizable.strings should only be updated on release branches because it is generated automatically.");
     }
 };
+
+// Function used as a reducer to parse and accumulate pods which are referenced by commit.
+// Uses recursion to parse transitive dependencies of each entry.
+//
+// @param list - The accumulated list of commit-referenced pods so far
+// @param entry - an entry representing a pod listed in the lockfile.
+//                Will be a `string` if the pod has no dependencies.
+//                Otherwise, will be an `object`, with the pod being the single key, and the value being the dependencies
+// @return The new list with any commit-referenced pod found added to the initial `list`
+function parseCommitPods(list: string[], entry: any): string[] {
+    // Example of relevant Podfile.lock portion:
+    //
+    // DEPENDENCIES:
+    //     - Kanvas(from `https://github.com/tumblr/Kanvas-iOS.git`, branch `main`)
+    //     - WordPress - Editor - iOS(~> 1.19.8)
+    //     - WordPressUI(from `https://github.com/wordpress-mobile/WordPressUI-iOS`, commit `5ab5fd3dc8f50a27181cf14e101abe3599398cad`)
+    if (typeof entry === 'string') {
+        const match = entry.match(/(.*)\(from .*, commit `.*`/);
+        if (match != null) { list.push(match[1]) };
+    } else {
+        const key: string = Object.keys(entry)[0];
+        list = [key, ...entry[key]].reduce(parseCommitPods, list);
+    }
+    return list
+}
