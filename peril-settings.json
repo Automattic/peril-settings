@@ -57,8 +57,7 @@
         },
         "wordpress-mobile/gutenberg-mobile": {
             "status": [
-                "Automattic/peril-settings@org/pr/installable-build.ts",
-                "Automattic/peril-settings@org/pr/gb-mobile-ui-tests.ts"
+                "Automattic/peril-settings@org/pr/installable-build.ts"
             ]
         },
         "woocommerce/woocommerce-ios": {
