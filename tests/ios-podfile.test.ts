@@ -37,8 +37,98 @@ beforeEach(() => {
     dm.danger.github.utils.fileContents.mockReturnValue(Promise.resolve(""));
 });
 
-describe("Podfile should not reference commit hashes checks", () => {
-    it("fails when finds a commit reference", async () => {
+describe("Podfile should not reference branches checks", () => {
+    it("fails when finds a brance reference", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - TestPod (from \`https://github.com/test/pod.git\`, branch \`trunk\`)
+                    - WordPressKit (~> 6.1.0-beta)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a branch for TestPod");
+    })
+
+    it("fails when finds branch references in transitive dependencies", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - WordPressKit (~> 6.1.0-beta)
+                    - TestPod (~> 1.7.2):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2 (from \`https://github.com/test/pod2.git\`, branch \`branch-name\`)
+                      - TestDep3 (~> 1.7.2)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a branch for TestDep2");
+    })
+
+    it("fails when finds multiple branch references", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - TestPod (from \`https://github.com/test/pod.git\`, branch \`trunk\`):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2 (from \`https://github.com/test/pod2.git\`, branch \`my-feature-branch\`)
+                      - TestDep3 (~> 1.7.2)
+                    - WordPressKit (~> 6.1.0-beta):
+                      - WordPressShared (from \`https://github.com/wordpress-mobile/WordPress-iOS-Shared.git\`, branch \`develop\`)
+                    - StandalonePod (~> 1.2.7)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a branch for TestPod,TestDep2,WordPressShared");
+    })
+
+    it("does not fail when finds no branch references", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - Gutenberg (from \`https://github.com/wordpress-mobile/gutenberg-mobile.git\`, tag \`v1.88.0\`)
+                    - WordPressKit (~> 6.1.0-beta)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).not.toHaveBeenCalled();
+    });
+
+    it("does not fail when finds no branch references, including in transitive dependencies", async () => {
+        dm.danger.github.utils.fileContents.mockReturnValueOnce(
+            Promise.resolve(
+                `DEPENDENCIES:
+                    - WordPressKit (~> 6.1.0-beta)
+                    - TestPod (~> 1.7.2):
+                      - TestDep1 (~> 2.0-beta)
+                      - TestDep2 (~> 1.7.2)
+                      - TestDep3 (~> 1.7.2)
+                `
+            )
+        );
+
+        await iosMacos();
+
+        expect(dm.fail).not.toHaveBeenCalled();
+    });
+})
+
+describe("Podfile is allowed to reference commit hashes checks", () => {
+    it("does not fail when finds a commit reference", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
                 `DEPENDENCIES:
@@ -51,10 +141,10 @@ describe("Podfile should not reference commit hashes checks", () => {
 
         await iosMacos();
 
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod");
+        expect(dm.fail).not.toHaveBeenCalled()
     })
 
-    it("fails when finds commit references in transitive dependencies", async () => {
+    it("does not fail when finds commit references in transitive dependencies", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
                 `DEPENDENCIES:
@@ -69,10 +159,10 @@ describe("Podfile should not reference commit hashes checks", () => {
 
         await iosMacos();
 
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestDep2");
+        expect(dm.fail).not.toHaveBeenCalled();
     })
 
-    it("fails when finds multiple commit references", async () => {
+    it("doesn not fail when it finds multiple commit references", async () => {
         dm.danger.github.utils.fileContents.mockReturnValueOnce(
             Promise.resolve(
                 `DEPENDENCIES:
@@ -90,7 +180,7 @@ describe("Podfile should not reference commit hashes checks", () => {
 
         await iosMacos();
 
-        expect(dm.fail).toHaveBeenCalledWith("Podfile: reference to a commit hash for TestPod,TestDep2,WordPressShared");
+        expect(dm.fail).not.toHaveBeenCalled();
     })
 
     it("does not fail when finds no commit", async () => {

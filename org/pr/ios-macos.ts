@@ -14,16 +14,17 @@ export default async () => {
         warn("Core Data: Do not edit an existing Core Data model in a release branch unless it hasn't been released to testers yet. Instead create a new model version and merge back to develop soon.");
     }
 
-    // Podfile should not reference commit hashes.
+    // Podfile should not reference branches.
+    // See internal reference: paNNhX-K4-p2.
     //
     // Verify by parsing Podfile.lock because it uses a standard format, unlike Podfile which might be written in different ways.
     //
     const podfileLockContents = await danger.github.utils.fileContents("Podfile.lock");
     const podfileLockYAML = require("js-yaml").safeLoad(podfileLockContents);
     const allPods: any[] = (podfileLockYAML && podfileLockYAML["DEPENDENCIES"]) || [];
-    const podsReferencedByCommit: string[] = allPods.reduce(parseCommitPods, []);
-    if (podsReferencedByCommit.length > 0) {
-        fail(`Podfile: reference to a commit hash for ${podsReferencedByCommit}`);
+    const podsReferencedByBranch: string[] = allPods.reduce(parseBranchPods, []);
+    if (podsReferencedByBranch.length > 0) {
+        fail(`Podfile: reference to a branch for ${podsReferencedByBranch}`);
     }
 
     // If changes were made to the release notes, there must also be changes to the AppStoreStrings file.
@@ -60,6 +61,11 @@ export default async () => {
 // @return The new list with any commit-referenced pod found added to the initial `list`
 function parseCommitPods(list: string[], entry: any): string[] {
     return parsePods(/(.*) \(from .*, commit `.*`/, list, entry);
+}
+
+// See documentation for parseCommitPods, but this one finds pods reference by branch instead.
+function parseBranchPods(list: string[], entry: any): string[] {
+    return parsePods(/(.*) \(from .*, branch `.*`/, list, entry);
 }
 
 // Function used as a reducer to parse and accumulate pods from Podfile.lock that match a given RegExp.
